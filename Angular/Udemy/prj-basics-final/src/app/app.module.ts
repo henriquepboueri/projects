@@ -14,6 +14,7 @@ import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-ed
 import { BasicHighlightDirective } from './directives/basic-highlight.directive';
 import { BetterHighlightDirective } from './directives/better-highlight.directive';
 import { HostbindingHighlightDirective } from './directives/hostbinding-highlight.directive';
+import { UnlessDirective } from './directives/unless.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { HostbindingHighlightDirective } from './directives/hostbinding-highligh
     ShoppingEditComponent,
     BasicHighlightDirective,
     BetterHighlightDirective,
-    HostbindingHighlightDirective
+    HostbindingHighlightDirective,
+    UnlessDirective
   ],
   imports: [
     BrowserModule,
