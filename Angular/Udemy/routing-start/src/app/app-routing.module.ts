@@ -1,3 +1,4 @@
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate-guard.service';
 import { AuthGuard } from './auth-guard.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -19,13 +20,13 @@ const appRoutes: Routes = [
             { path: ":id/:name", component: UserComponent }]
     },
     {
-        path: "servers", 
+        path: "servers",
         //canActivate: [AuthGuard], // protects parent and children routes
         canActivateChild: [AuthGuard], // protects children routes only
         component: ServersComponent,
         children: [
             { path: ":id", component: ServerComponent },
-            { path: ":id/edit", component: EditServerComponent }]
+            { path: ":id/edit", component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }]
     },
     { path: 'not-found', component: PageNotFoundComponent },
     //{ path: 'something', redirectTo: '/something', pathMatch: 'full'}, // 'prefix' (default) or 'full'
