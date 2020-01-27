@@ -1,0 +1,24 @@
+<p>Check Console!</p>
+<div>
+  <pre>
+        /// - hot - runs even if there is no observer
+        /// - shares data - it is executed once and all observers receive the same data
+        /// - observer can assign value
+        /// - subscriber will not receive data streamed before subscription
+   
+        ngOnInit() {{ "{" }}
+            const subject = new Subject();
+            subject.subscribe(v => console.log("Observer 1", v));
+            subject.next("Message 1  from subject");
+            subject.subscribe(v => console.log("Observer 2", v));
+            subject.next("Message 2  from subject");
+            subject.subscribe(v => console.log("Observer 3", v));
+        
+            console.log(
+              "Only observer 1 is able to print all the values broadcasted, because he started observing subject before any value brodcasted."
+            );
+            console.log("------------ 🙏🏻 END of subject story 🙏🏻 ------------------");
+          }
+    </pre
+  >
+</div>

@@ -1,0 +1,25 @@
+<p>Check Console!</p>
+
+<div>
+  <pre>
+    /// - hot
+    /// - shares data
+    /// - observer can assign value
+    /// - subscriber will receive data streamed before subscription
+    /// - can set initial value
+    
+    const behaviorSubject = new BehaviorSubject(
+      "Initial message from Behavior subject"
+    );
+
+    behaviorSubject.subscribe(v => console.log(v));
+    behaviorSubject.subscribe(v => console.log(v));
+
+    behaviorSubject.next("Message 2 from Behaviroal subject");
+
+    console.log(
+      "------------🙏🏻  END of Behavioral Subject story 🙏🏻 ------------------"
+    );
+  }
+  </pre>
+</div>
