@@ -1,5 +1,16 @@
+import { Observable } from "rxjs";
+
+class User {
+  id: number;
+  name: string;
+}
+
 export class UsersService {
-  users = [
+  observable = new Observable<User[]>(obj => {
+    obj.next(this.users);
+  });
+
+  users: User[] = [
     {
       id: 1,
       name: "Max"
@@ -13,4 +24,10 @@ export class UsersService {
       name: "Chris"
     }
   ];
+
+  clearUsers() {
+    this.users.splice(0, 1);
+  }
+
+  ngOnInit() {}
 }
