@@ -1,9 +1,12 @@
-import { CanDeactivateGuard, CanComponentDeactivate } from './can-deactivate-guard.service';
+import {
+  CanDeactivateGuard,
+  CanComponentDeactivate
+} from "./can-deactivate-guard.service";
 import { Component, OnInit } from "@angular/core";
 
 import { ServersService } from "../servers.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
-import { Observable } from 'rxjs/Observable';
+import { Observable } from "rxjs/Observable";
 
 @Component({
   selector: "app-edit-server",
@@ -17,23 +20,22 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
   allowEdit = false;
   changesSaved = false;
 
-  constructor(private serversService: ServersService,
+  constructor(
+    private serversService: ServersService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    console.log(this.route.snapshot.queryParams);
+    console.log(this.route.snapshot.fragment);
+    this.route.queryParams.subscribe((queryParams: Params) => {
+      this.allowEdit = queryParams["allowEdit"] === "1" ? true : false;
+    });
+    this.route.fragment.subscribe();
     const id = +this.route.snapshot.params["id"];
     this.server = this.serversService.getServer(id);
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.server = this.serversService.getServer(+params["id"]);
-      });
-    this.route.queryParams.subscribe((params: Params) => {
-      this.allowEdit = params['allowEdit'] === '1' ? true : false;
-      this.serverName = this.server.name;
-      this.serverStatus = this.server.status;
-    });
-    //this.route.fragment.subscribe();
+    // Subscribe route params to update the id if params change
     this.serverName = this.server.name;
     this.serverStatus = this.server.status;
   }
@@ -44,19 +46,21 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
       status: this.serverStatus
     });
     this.changesSaved = true;
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(["../"], { relativeTo: this.route });
   }
 
-  CanDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.allowEdit) {
       return true;
     }
-    if ((this.serverName !== this.server.name) || (this.serverStatus !== this.server.status) &&
-    (!this.changesSaved)) {
-      return confirm('Would you like to discard the changes?');
+    if (
+      (this.serverName !== this.server.name ||
+        this.serverStatus !== this.server.status) &&
+      !this.changesSaved
+    ) {
+      return confirm("Would you like to discard the changes?");
     } else {
       return true;
     }
   }
 }
-
