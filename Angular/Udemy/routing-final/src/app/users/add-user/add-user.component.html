@@ -1,0 +1,5 @@
+<div class="form-group">
+    <label for="name">Username</label>
+    <input type="text" id="name" class="form-control" #nameInput>
+</div>
+<button class="btn btn-primary" (click)="onAddUser(nameInput.value)">Add User</button>

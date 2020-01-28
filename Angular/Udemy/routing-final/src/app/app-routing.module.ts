@@ -1,3 +1,4 @@
+import { AddUserComponent } from './users/add-user/add-user.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -16,7 +17,8 @@ import { ServerResolver } from './servers/server/server-resolver.service';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'users', component: UsersComponent, children: [
-    { path: ':id/:name', component: UserComponent }
+    { path: ':id/:name', component: UserComponent },
+    { path: 'add', component: AddUserComponent},
   ] },
   {
     path: 'servers',
