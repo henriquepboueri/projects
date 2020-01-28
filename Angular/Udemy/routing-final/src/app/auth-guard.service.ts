@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
             return true;
           } else {
             this.router.navigate(['/']);
+            alert("You are not logged in yet. Please log in first!");
           }
         }
       );
