@@ -25,8 +25,8 @@ export class UsersService {
     }
 
     onAddUser(name: string) {
-        console.log(name);
-        const maxId = ++this.users.reduce((p, c) => p.id > c.id ? p : c)['id'];
-        this.users.push({id: maxId, name: name});
+        console.log(this.users);
+        const maxId = this.users.reduce((p, c) => p.id > c.id ? p : c)['id'];
+        this.users.push({id: maxId + 1, name: name});
     }
 }

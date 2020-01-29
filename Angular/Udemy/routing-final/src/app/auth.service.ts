@@ -14,6 +14,7 @@ export class AuthService {
 
   login() {
     this.loggedIn = true;
+    alert("You have logged in!")
   }
 
   logout() {

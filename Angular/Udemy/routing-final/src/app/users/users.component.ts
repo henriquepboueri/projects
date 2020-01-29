@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
-  providers: [UsersService]
+  providers: []
 })
 export class UsersComponent implements OnInit {
   users = [];
