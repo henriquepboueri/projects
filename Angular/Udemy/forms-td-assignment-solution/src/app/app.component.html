@@ -25,8 +25,11 @@
             required
             email
             class="form-control"
-            #email="ngModel">
-          <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email!</span>
+            #email="ngModel"
+          />
+          <span class="help-block" *ngIf="email.invalid && email.touched"
+            >Please enter a valid email!</span
+          >
         </div>
         <div class="form-group">
           <label for="subscription">Choose a Subscription</label>
@@ -34,10 +37,13 @@
             name="subscription"
             id="subscription"
             [ngModel]="selectedSubscription"
-            class="form-control">
+            class="form-control"
+          >
             <option
               *ngFor="let subscription of subscriptions"
-              [value]="subscription">{{ subscription }}</option>
+              [value]="subscription"
+              >{{ subscription }}</option
+            >
           </select>
         </div>
         <div class="form-group">
@@ -49,11 +55,16 @@
             ngModel
             required
             class="form-control"
-            #password="ngModel">
-          <span class="help-block" *ngIf="!password.valid && password.touched">Please enter a valid password!</span>
+            #password="ngModel"
+          />
+          <span class="help-block" *ngIf="!password.valid && password.touched"
+            >Please enter a valid password!</span
+          >
         </div>
-        <p *ngIf="!signupForm.valid && signupForm.touched">The form is invalid!</p>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <p *ngIf="!signupForm.valid && signupForm.touched">
+          The form is invalid!
+        </p>
+        <button [disabled]="signupForm.invalid" class="btn btn-primary" type="submit">Submit</button>
       </form>
     </div>
   </div>

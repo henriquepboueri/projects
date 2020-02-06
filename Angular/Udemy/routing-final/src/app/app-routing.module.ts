@@ -33,12 +33,12 @@ const appRoutes: Routes = [
       {
         path: ":id",
         component: ServerComponent,
-        resolve: { server: ServerResolver }
+        resolve: { server: ServerResolver },
       },
       {
         path: ":id/edit",
         component: EditServerComponent,
-        canDeactivate: [CanDeactivateGuard]
+        canDeactivate: [CanDeactivateGuard],
       }
     ]
   },
