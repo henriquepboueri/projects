@@ -1,4 +1,4 @@
-import { Router } from '@angular/router';
+import { Router } from "@angular/router";
 import { EventEmitter, Injectable } from "@angular/core";
 
 import { Recipe } from "./recipe.model";
@@ -25,9 +25,13 @@ export class RecipeService {
     )
   ];
 
-  constructor(private slService: ShoppingListService,
-    private route: Router) {}
+  constructor(private slService: ShoppingListService, private route: Router) {}
 
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
+  
   getRecipes() {
     return this.recipes.slice();
   }
