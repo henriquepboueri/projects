@@ -52,16 +52,11 @@ export class AppComponent {
     };
   }
   onAddServer() {
-    console.log(this.servers);
-    console.log(this.propName);
     this.servers.push({
       instanceType: "small",
       name: "New Server",
       status: "stable",
       started: new Date(15, 1, 2017)
     });
-  }
-  onSetPropName(prop: string) {
-    this.propName = prop;
   }
 }
