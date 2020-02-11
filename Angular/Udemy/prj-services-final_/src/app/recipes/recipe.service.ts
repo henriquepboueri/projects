@@ -10,7 +10,7 @@ import { Subject } from "rxjs";
 export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
 
-  private recipes: Recipe[] = [
+  /*   private recipes: Recipe[] = [
     new Recipe(
       "Tasty Schnitzel",
       "A super-tasty Schnitzel - just awesome!",
@@ -23,7 +23,9 @@ export class RecipeService {
       "https://upload.wikimedia.org/wikipedia/commons/b/be/Burger_King_Angus_Bacon_%26_Cheese_Steak_Burger.jpg",
       [new Ingredient("Buns", 2), new Ingredient("Meat", 1)]
     )
-  ];
+  ]; */
+
+  private recipes: Recipe[] = [];
 
   constructor(private slService: ShoppingListService, private route: Router) {}
 
@@ -31,7 +33,7 @@ export class RecipeService {
     this.recipes = recipes;
     this.recipesChanged.next(this.recipes.slice());
   }
-  
+
   getRecipes() {
     return this.recipes.slice();
   }

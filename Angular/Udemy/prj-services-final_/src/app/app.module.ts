@@ -1,3 +1,5 @@
+import { LoadingSpinnerComponent } from "./shared/loading-spinner/loading-spinner.component";
+import { AuthComponent } from "./auth/auth.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
@@ -30,7 +32,9 @@ import { HttpClientModule } from "@angular/common/http";
     ShoppingEditComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
