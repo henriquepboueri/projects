@@ -1,4 +1,4 @@
-import { AuthGuard } from "./auth/auth.guard";
+import { AuthGuard } from './auth/auth.guard';
 import { AuthComponent } from "./auth/auth.component";
 import { RecipesResolverService } from "./recipes/recipes-resolver.service";
 import { RecipeEditComponent } from "./recipes/recipe-edit/recipe-edit.component";
