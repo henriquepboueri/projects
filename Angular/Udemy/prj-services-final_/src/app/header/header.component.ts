@@ -3,8 +3,6 @@ import { AuthService } from "./../auth/auth.service";
 import { DataStorageService } from "./../shared/data-storage.service";
 import {
   Component,
-  EventEmitter,
-  Output,
   OnInit,
   OnDestroy
 } from "@angular/core";
