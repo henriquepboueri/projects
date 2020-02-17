@@ -8,7 +8,6 @@ import {
   HttpEvent,
   HttpParams
 } from "@angular/common/http";
-import { Observable } from "rxjs";
 
 @Injectable()
 export class AuthInterceptorService implements HttpInterceptor {
