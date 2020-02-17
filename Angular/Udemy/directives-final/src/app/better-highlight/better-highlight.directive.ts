@@ -7,6 +7,7 @@ import {
   HostBinding,
   Input
 } from '@angular/core';
+import { AlertComponent } from '../alert/alert.component';
 
 @Directive({
   selector: '[appBetterHighlight]'
@@ -15,6 +16,9 @@ export class BetterHighlightDirective implements OnInit {
   @Input() defaultColor: string = 'transparent';
   @Input('appBetterHighlight') highlightColor: string = 'blue';
   @HostBinding('style.backgroundColor') backgroundColor: string;
+  componentFactoryResolver: any;
+  alertHost: any;
+  closeSubscription: any;
 
   constructor(private elRef: ElementRef, private renderer: Renderer2) { }
 
@@ -32,5 +36,6 @@ export class BetterHighlightDirective implements OnInit {
     // this.renderer.setStyle(this.elRef.nativeElement, 'background-color', 'transparent');
     this.backgroundColor = this.defaultColor;
   }
+
 
 }
