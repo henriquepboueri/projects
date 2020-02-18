@@ -1,10 +1,15 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { RecipesModule } from "./recipes/recipes.module";
 
 const appRoutes: Routes = [
-  { path: "recipes", loadChildren: "./recipes/recipes.module#RecipesModule" },
-  { path: "", redirectTo: "/recipes", pathMatch: "full" }
+  //{ path: "recipes", loadChildren: "./recipes/recipes.module#RecipesModule" },
+  { path: "", redirectTo: "/recipes", pathMatch: "full" },
+  {
+    path: "recipes",
+    loadChildren: () =>
+      import("./recipes/recipes.module").then(m => m.RecipesModule)
+  }
+
   /*{ path: "", component: HomeComponent },
   {
     path: "users",
@@ -17,7 +22,7 @@ const appRoutes: Routes = [
   {
     path: "servers",
     // canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    canActivateChild: [AuthGuard],ng update @angular/core@8 @angular/cli@8
     component: ServersComponent,
     children: [
       {
