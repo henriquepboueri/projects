@@ -30,6 +30,7 @@ export class AuthGuard implements CanActivate {
         if (isAuth) {
           return true;
         }
+        window.alert("Access is denied.");
         return this.router.createUrlTree(["/auth"]);
       })
     );

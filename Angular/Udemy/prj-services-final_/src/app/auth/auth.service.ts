@@ -1,3 +1,4 @@
+import { environment } from "../../environments/environment";
 import { Router } from "@angular/router";
 import {
   HttpClient,
@@ -44,9 +45,11 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
+    this.key = environment.firebaseIAPIKey;
     return this.http
       .post<AuthResponseData>(
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD4RPWFQWK5iNvW2aTIhxmQ3fT7aOynA1E",
+        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=" +
+          this.key,
         { email: email, password: password, returnSecureToken: true }
       )
       .pipe(
@@ -63,6 +66,7 @@ export class AuthService {
   }
 
   signup(email: string, password: string) {
+    this.key = environment.firebaseIAPIKey;
     return this.http
       .post<AuthResponseData>(
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp",
