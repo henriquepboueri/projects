@@ -3,7 +3,13 @@ import { Ingredient } from "./../../shared/ingredient.model";
 import { RecipeService } from "./../recipe.service";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
-import { FormGroup, FormControl, FormArray, Validators } from "@angular/forms";
+import {
+  FormGroup,
+  FormControl,
+  FormArray,
+  Validators,
+  Form
+} from "@angular/forms";
 
 @Component({
   selector: "app-recipe-edit",
@@ -51,7 +57,8 @@ export class RecipeEditComponent implements OnInit {
   }
 
   get controls() {
-    return (<FormArray>this.recipeForm.get("ingredients")).controls;
+    //return (<FormArray>this.recipeForm.get("ingredients")).controls;
+    return (this.recipeForm.get("ingredients") as FormArray).controls;
   }
 
   private initForm() {

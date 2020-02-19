@@ -1,5 +1,6 @@
+import { SelectivePreloadingStrategyService } from "./selective-preloading-strategy.service";
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 
 const appRoutes: Routes = [
   //{ path: "recipes", loadChildren: "./recipes/recipes.module#RecipesModule" },
@@ -7,7 +8,23 @@ const appRoutes: Routes = [
   {
     path: "recipes",
     loadChildren: () =>
-      import("./recipes/recipes.module").then(m => m.RecipesModule)
+      import("./recipes/recipes.module").then(
+        m => m.RecipesModule
+      ) /* ,
+    data: { preload: true } */
+    //canActivate: [AuthGuard]
+  },
+  {
+    path: "shopping-list",
+    loadChildren: () =>
+      import("./shopping-list/shopping-list.module").then(
+        m => m.ShoppingListModule
+      ),
+    data: { preload /* any name I choose*/: true }
+  },
+  {
+    path: "auth",
+    loadChildren: () => import("./auth/auth.module").then(m => m.AuthModule)
   }
 
   /*{ path: "", component: HomeComponent },
@@ -22,7 +39,7 @@ const appRoutes: Routes = [
   {
     path: "servers",
     // canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],ng update @angular/core@8 @angular/cli@8
+    canActivateChild: [AuthGuard],
     component: ServersComponent,
     children: [
       {
@@ -49,8 +66,12 @@ const appRoutes: Routes = [
 @NgModule({
   imports: [
     // RouterModule.forRoot(appRoutes, {useHash: true})
-    RouterModule.forRoot(appRoutes)
+    //RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(appRoutes, {
+      preloadingStrategy: SelectivePreloadingStrategyService
+    })
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [SelectivePreloadingStrategyService]
 })
 export class AppRoutingModule {}

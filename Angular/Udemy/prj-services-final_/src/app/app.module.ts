@@ -3,11 +3,9 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 
 import { SharingModule } from "./shared/sharing.module";
-import { ShoppingListModule } from "./shopping-list/shopping-list.module";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header.component";
-import { AuthModule } from "./auth/auth.module";
 import { CoreModule } from "./core.module";
 
 @NgModule({
@@ -18,8 +16,8 @@ import { CoreModule } from "./core.module";
     SharingModule,
     /* routes */
     AppRoutingModule,
-    AuthModule,
-    ShoppingListModule,
+    // loading lazily AuthModule,
+    // loading lazily ShoppingListModule,
     // loading lazily RecipesModule,
     CoreModule
   ],
