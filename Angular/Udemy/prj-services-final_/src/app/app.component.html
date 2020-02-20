@@ -7,12 +7,4 @@
       <app-shopping-list *ngIf="loadedFeature !== 'recipe'"></app-shopping-list> -->
     </div>
   </div>
-  <p [style.font-size]="'30px'">
-    {{ notas[notas.length - 3] }} |
-    <span [ngStyle]="{ 'font-size': '50px', color: 'red' }"
-      >{{ notas[notas.length - 2] }}
-    </span>
-    | {{ notas[notas.length - 1] }}
-  </p>
-  <p>Tempo: {{ timeout }} </p>
 </div>
