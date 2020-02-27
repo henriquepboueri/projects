@@ -1,5 +1,6 @@
 import { MessageService } from "./../message.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-messages",
@@ -8,6 +9,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class MessagesComponent implements OnInit {
   messages: string[] = [];
+
   constructor(private messageService: MessageService) {}
 
   ngOnInit() {
@@ -15,6 +17,8 @@ export class MessagesComponent implements OnInit {
   }
 
   onClear() {
+    console.log(this.messageService.messages);
     this.messageService.clear();
+    console.log(this.messageService.messages);
   }
 }

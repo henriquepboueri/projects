@@ -1,3 +1,4 @@
+/* import { Observable, from, of } from "rxjs"; */
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -13,6 +14,6 @@ export class MessageService {
   }
 
   clear() {
-    this.messages = [];
+    this.messages.length = 0;
   }
 }
