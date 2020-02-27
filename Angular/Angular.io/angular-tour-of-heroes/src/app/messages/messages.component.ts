@@ -7,7 +7,14 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./messages.component.css"]
 })
 export class MessagesComponent implements OnInit {
+  messages: string[] = [];
   constructor(private messageService: MessageService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.messages = this.messageService.messages;
+  }
+
+  onClear() {
+    this.messageService.clear();
+  }
 }
