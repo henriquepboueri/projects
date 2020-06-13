@@ -1,12 +1,31 @@
-body {
-  margin: 0;
-}
-div {
-  background-color: blanchedalmond;
-  width: 200px;
-  height: 200px;
+* {
+  box-sizing: border-box;
 }
 
-h1 {
-  background-color: blueviolet;
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+
+div {
+  background-color: blanchedalmond;
+  border: 1px solid darkgreen;
+  width: 200px;
+  height: 200px;
+  margin: 0;
+  text-align: center;
+}
+
+#box1 {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
+
+#box2 {
+  position: fixed;
 }
