@@ -1,7 +1,9 @@
-sizes-units-01-whats-wrong-with-starting-code
-sizes-units-02-the-height-100-issue-finished
-sizes-units-03-working-with-rem-and-em-finished
-sizes-units-04-finishing-rem-finished
-sizes-units-04.01-finishing-rem-css-code-shared-and-main
-sizes-units-05-understanding-vh-vw-finished
-sizes-units-06-project-finished
+responsive-01-why-our-project-should-starting-code
+responsive-02-understanding-the-viewport-metatag-finished
+responsive-03-things-to-keep-in-mind-finished
+responsive-04-making-the-plans-responsive-finished
+responsive-05-your-challenge-finished
+responsive-06-assignment-problem
+responsive-07-assignment-solution
+responsive-08-improving-the-packages-page-finished
+responsive-09-project-finished
