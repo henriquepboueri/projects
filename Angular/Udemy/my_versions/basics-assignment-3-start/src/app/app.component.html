@@ -1,0 +1,50 @@
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <ol>
+        <li appHighlight="red">
+          Add A button which says 'Display Details'
+        </li>
+        <li [ngStyle]="{ 'background-color': color || 'green' }">
+          Add a paragraph with any content of your choice (e.g. 'Secret Password
+          = tuna')
+        </li>
+        <li *ngIf="true">
+          Toggle the displaying of that paragraph with the button created in the
+          first step
+        </li>
+        <li style="display: none;">
+          Log all button clicks in an array and output that array below the
+          secret paragraph (maybe log a timestamp or simply an incrementing
+          number)
+        </li>
+        <li>
+          Starting at the 5th log item, give all future log items a blue
+          background (via ngStyle) and white color (ngClass)
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<button (click)="onToggle()">Display Detailts</button>
+<p *ngIf="isShown">Secret Password = tuna</p>
+<p
+  appHighlight="red"
+  *ngFor="let log of logs; let i = index; let odd = odd; trackBy: trackById"
+  [ngStyle]="{ 'background-color': i >= 4 ? 'blue' : 'transparent' }"
+  [ngClass]="{ 'text-color': i >= 4 }"
+>
+  {{ log }} - {{ i + 1 }} - {{ odd }}
+</p> -->
+
+<p>
+  I turned the corner
+  <span *ngIf="hero"> and saw {{ hero.name }}. I waved </span>
+  and continued on my way.
+</p>
+
+<button (click)="subscribe()">Subscribe</button>
+<button (click)="emit_value()">Emit values</button>
+<button (click)="complete()">Complete</button>
+<button (click)="add_to_array()">Add number to array</button>

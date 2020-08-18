@@ -48,7 +48,7 @@ class ProductList {
       'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Ardabil_Carpet.jpg/397px-Ardabil_Carpet.jpg',
       'A carpet which you might like - or not.',
       89.99
-    )
+    ),
   ];
 
   constructor() {}
