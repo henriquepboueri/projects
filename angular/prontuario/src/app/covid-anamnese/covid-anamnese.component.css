@@ -1,0 +1,11 @@
+#titulo {
+  display: block;
+}
+
+.container {
+  padding: 2rem;
+}
+
+.pergunta {
+  display: flex;
+}

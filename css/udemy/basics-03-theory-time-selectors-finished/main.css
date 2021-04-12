@@ -1,12 +1,19 @@
-#product-overview {
-    background: #ff1b68;
+* {
+  box-sizing: border-box;
 }
 
-h1 {
-    color: white;
-    font-family: 'Anton', sans-serif;
+button {
+  background-color: bisque;
 }
 
-.section-title {
-    color: #2ddf5c;
+[disabled] {
+  background-color: blue;
+}
+
+.sub-class {
+  background-color: green;
+}
+
+#btn-submit {
+  background-color: yellow;
 }

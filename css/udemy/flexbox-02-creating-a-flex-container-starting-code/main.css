@@ -18,13 +18,12 @@ body {
   background: white;
   padding: 10px;
   border: 5px solid black;
-  height: 1500px;
   display: flex;
   flex-direction: row;
+  /* flex-wrap: wrap; */
   justify-content: center;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: cen;
+  align-items: center;
+  align-content: space-around;
 }
 
 .item-1 {
@@ -71,6 +70,8 @@ body {
   border: 5px solid black;
   margin: 10px;
   width: 350px;
+  /* flex-grow: 2; */
+  flex-shrink: 1;
 }
 
 .item-6 {
@@ -80,4 +81,6 @@ body {
   border: 5px solid black;
   margin: 10px;
   width: 350px;
+  /* flex-grow: 1; */
+  flex-shrink: 4;
 }
