@@ -3,11 +3,19 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 45%;
 }
 
 .sidenav .mat-toolbar {
   background: inherit;
+}
+
+.sidenav ul {
+  padding: 0;
+}
+
+.sidenav li {
+  list-style: none;
 }
 
 .mat-toolbar.mat-primary {
@@ -16,7 +24,7 @@
   z-index: 1;
 }
 
-@media (min-width: 512px) {
+@media (min-width: 600px) {
   .sidenav {
     display: none;
   }

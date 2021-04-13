@@ -9,9 +9,16 @@ import { AppComponent } from './app.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { SharedModule } from './shared/shared.module';
 import { CovidAnamneseComponent } from './covid-anamnese/covid-anamnese.component';
+import { LoginComponent } from './login/login.component';
+// import { AppLoginComponent } from '.login/login.component';
 
 @NgModule({
-  declarations: [AppComponent, MainNavComponent, CovidAnamneseComponent],
+  declarations: [
+    AppComponent,
+    MainNavComponent,
+    CovidAnamneseComponent,
+    LoginComponent,
+  ],
   imports: [
     FormsModule,
     BrowserModule,
