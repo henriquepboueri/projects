@@ -1,6 +1,7 @@
 mat-card-header {
   padding-top: 1rem;
-  background-color: #3f51b5;
+  /* background-color: #3f51b5; */
+  background-color: #D32F2F;
   border-radius: 4px 4px 0 0;
 }
 
@@ -37,6 +38,8 @@ mat-card-actions {
 
 mat-card-actions button {
   width: 25%;
+  background-color: #D32F2F;
+  color: white;
 }
 
 mat-card-actions a {
@@ -45,17 +48,18 @@ mat-card-actions a {
 }
 
 mat-card-actions a:visited {
-  color: #3f51b5;
+  /* color: #3f51b5; */
+  color: #D32F2F;
 }
 
 .container {
-  /* background: rgb(0, 91, 161);
-     background-image: url("../../assets/bg-weed.jpg"); */
+  background: rgb(0, 91, 161);
+  background-image: url("../../assets/bg-weed.jpg");
 
-  background: rgb(236, 230, 222);
+  /* background: rgb(236, 230, 222);
   background: radial-gradient(
     circle,
     rgba(236, 230, 222, 1) 0%,
     rgba(232, 226, 218, 1) 100%
-  );
+  ); */
 }

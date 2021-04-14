@@ -36,6 +36,16 @@
           <li><a href="#">Dentístico</a></li>
         </ul>
       </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Covid
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+          <li><a href="#" routerLink="/covid">Formulário</a></li>
+        </ul>
+      </mat-expansion-panel>
     </mat-accordion>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -51,6 +61,6 @@
       </button>
       <span>Controle de Prontuário</span>
     </mat-toolbar>
-    <router-outlet>...nav-router</router-outlet>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
