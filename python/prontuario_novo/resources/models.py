@@ -36,31 +36,3 @@ class Usuario(db.Model):
 
     def isAdmin(self):
         return self.tipo_usuario.nome == 'Admin'
-
-
-class Paciente(db.Model):
-    __tablename__ = 'paciente'
-
-    id__paciente = db.Column(db.BigInteger, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(50))
-    nr_sus = db.Column(db.String(50))
-    sexo = db.Column(db.String(1), nullable=False)
-    dt_nasc = db.Column(db.Date, nullable=False)
-    cor = db.Column(db.String(1))
-    nm_mae = db.Column(db.String(100))
-    nm_pai = db.Column(db.String(100))
-    cep = db.Column(db.String(8))
-    logradouro = db.Column(db.String(100))
-    bairro = db.Column(db.String(50))
-    numero = db.Column(db.String(50))
-    cidade = db.Column(db.String(100))
-    nr_telefone_1 = db.Column(db.String(11))
-    nr_telefone_2 = db.Column(db.String(11))
-    profissao = db.Column(db.String(50))
-    nmContato = db.Column(db.String(100))
-    nr_contato = db.Column(db.String(11))
-    obs_contato = db.Column(db.String)
-    obs_gerais = db.Column(db.String)
-    data_cadastro = db.Column(
-        db.DateTime, nullable=False, server_default=db.FetchedValue())

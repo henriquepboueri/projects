@@ -1,4 +1,7 @@
-class InternalServerError(Exception):
+from werkzeug.exceptions import HTTPException
+
+
+class InternalServerError(HTTPException):
     pass
 
 
@@ -27,6 +30,10 @@ class MovieNotExistsError(Exception):
 
 
 class BadTokenError(Exception):
+    pass
+
+
+class MissingAuthorizationTokenError(HTTPException):
     pass
 
 
@@ -103,4 +110,8 @@ errors = {
         "message": "The token is expired",
         "status": 400
     },
+    "MissingAuthorizationTokenError": {
+        "message": " Header Authorization não encontrado na requisição",
+        "status": 401
+    }
 }

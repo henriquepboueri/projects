@@ -4,7 +4,7 @@ from database.models import User
 from flask_restful import Resource
 import datetime
 from mongoengine.errors import FieldDoesNotExist, NotUniqueError, DoesNotExist
-from resources.errors import SchemaValidationError, EmailAlreadyExistsError, UnauthorizedError, InternalServerError
+from resources.errors import CredentialsInvalidError, SchemaValidationError, EmailAlreadyExistsError, UnauthorizedError, InternalServerError
 
 
 class SignupApi(Resource):
@@ -31,13 +31,16 @@ class LoginApi(Resource):
             user = User.objects.get(email=body.get('email'))
             authorized = user.check_password(body.get('password'))
             if not authorized:
-                return {'error': 'Email or password invalid'}, 401
+                # raise CredentialsInvalidError
+                pass
 
             expires = datetime.timedelta(days=7)
             access_token = create_access_token(
-                identity=str(id), expires_delta=expires)
+                identity=str(user.id), expires_delta=expires)
             return {'token': access_token}, 200
         except (UnauthorizedError, DoesNotExist):
             raise UnauthorizedError
+        except (CredentialsInvalidError):
+            raise CredentialsInvalidError
         except Exception as e:
             raise InternalServerError

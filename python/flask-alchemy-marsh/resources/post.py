@@ -2,9 +2,8 @@ from main import db, ma, api
 from flask_restful import Resource
 from flask import request
 
+
 # modelo - representação do meu banco de dados (tabela, no caso)
-
-
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(50))

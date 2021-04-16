@@ -1,8 +1,7 @@
+from flask_restful import HTTPException
+
+
 class InternalServerError(Exception):
-    pass
-
-
-class CredentialsInvalidError(Exception):
     pass
 
 
@@ -10,44 +9,48 @@ class SchemaValidationError(Exception):
     pass
 
 
-class MovieAlreadyExistsError(Exception):
+class CredentialsInvalidError(Exception):
     pass
 
 
-class UpdatingMovieError(Exception):
-    pass
+# class MovieAlreadyExistsError(Exception):
+#     pass
 
 
-class DeletingMovieError(Exception):
-    pass
+# class UpdatingMovieError(Exception):
+#     pass
 
 
-class MovieNotExistsError(Exception):
-    pass
+# class DeletingMovieError(Exception):
+#     pass
 
 
-class BadTokenError(Exception):
-    pass
+# class MovieNotExistsError(Exception):
+#     pass
 
 
-class EmailAlreadyExistsError(Exception):
-    pass
+# class BadTokenError(Exception):
+#     pass
 
 
-class EmailDoesNotExistError(Exception):
-    pass
+# class EmailAlreadyExistsError(Exception):
+#     pass
 
 
-class UnauthorizedError(Exception):
-    pass
+# class EmailDoesNotExistError(Exception):
+#     pass
 
 
-class EmailDoesnotExistsError(Exception):
-    pass
+# class UnauthorizedError(Exception):
+#     pass
 
 
-class ExpiredTokenError(Exception):
-    pass
+# class EmailDoesnotExistsError(Exception):
+#     pass
+
+
+# class ExpiredTokenError(Exception):
+#     pass
 
 
 errors = {
@@ -56,7 +59,7 @@ errors = {
         "status": 500
     },
     "CredentialsInvalidError": {
-        "message": "E-mail or password invalid",
+        "message": "E-mail ou senha inválidos",
         "status": 401
     },
     "SchemaValidationError": {
@@ -102,5 +105,5 @@ errors = {
     "ExpiredTokenError": {
         "message": "The token is expired",
         "status": 400
-    },
+    }
 }
