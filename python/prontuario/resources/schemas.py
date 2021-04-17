@@ -2,10 +2,9 @@ from app import ma
 from .models import Paciente, TipoUsuario, Usuario
 
 
-class UsuarioSchema(ma.SQLAlchemyAutoSchema):
-    # class UsuarioSchema(ma.Schema):
+class UsuarioSchema(ma.Schema):
     class Meta:
-        # fields = ('nome', 'email', 'senha')
+        fields = ('id__usuario', 'nome')
         model = Usuario
 
 
@@ -19,8 +18,15 @@ class PacienteSchema(ma.SQLAlchemyAutoSchema):
         model = Paciente
 
 
+class PacienteBuscaSchema(ma.Schema):
+    class Meta:
+        fields = ('id__paciente', 'nome', 'dt_nasc')
+        model = Paciente
+
+
 usuarios_schema = UsuarioSchema(many=True)
 usuario_schema = UsuarioSchema()
 
 paciente_schema = PacienteSchema()
 pacientes_schema = PacienteSchema(many=True)
+paciente_busca_schema = PacienteBuscaSchema(many=True)

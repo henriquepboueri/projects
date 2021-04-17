@@ -4,9 +4,9 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from flask_restful import Resource
 import datetime
 from app import db
-from .schemas import usuarios_schema, usuario_schema, paciente_schema, pacientes_schema
-from .models import Paciente, Usuario
-from resources.errors import CredentialsInvalidError, MissingAuthorizationTokenError, UnauthorizedError, InternalServerError
+from .schemas import usuarios_schema, usuario_schema, paciente_schema, pacientes_schema, paciente_busca_schema
+from .models import CovidAnamnese, Paciente, Usuario
+from resources.errors import BadRequestError, CredentialsInvalidError, MissingAuthorizationTokenError, UnauthorizedError, InternalServerError
 from flask_jwt_extended.exceptions import NoAuthorizationError
 
 
@@ -14,10 +14,10 @@ class UsuariosResource(Resource):
     @jwt_required()
     def get(self):
         try:
-            usuario = Usuario.query.get(get_jwt_identity())
+            # usuario = Usuario.query.get(get_jwt_identity())
 
-            if not usuario.isAdmin():
-                return {'erro': "Usuário não é administrador"}, 401
+            # if not usuario.isAdmin():
+            #     return {'erro': "Usuário não é administrador"}, 401
 
             usuarios = Usuario.query.all()
             return usuarios_schema.dump(usuarios)
@@ -26,6 +26,7 @@ class UsuariosResource(Resource):
 
 
 class UsuarioResource(Resource):
+    @jwt_required()
     def post(self):
         try:
             body = request.get_json()
@@ -42,13 +43,19 @@ class LoginResource(Resource):
     def post(self):
         try:
             body = request.get_json()
+            if 'email' not in body or 'senha' not in body:
+                raise BadRequestError
+
             usuario: Usuario = Usuario.query.filter_by(
                 email=body.get('email')).first()
+
+            if not usuario:
+                raise CredentialsInvalidError
+
             authorized = usuario.check_password(body.get('senha'))
 
             if not authorized:
-                return {'erro': 'E-mail ou senha inválidos'}, 401
-                # raise CredentialsInvalidError
+                raise CredentialsInvalidError
 
             expires = datetime.timedelta(days=1)
             expirationDate = genExpDateInMilSecs(expires)
@@ -59,6 +66,8 @@ class LoginResource(Resource):
             raise UnauthorizedError
         except (CredentialsInvalidError):
             raise CredentialsInvalidError
+        except (BadRequestError):
+            raise BadRequestError
         except (Exception) as e:
             raise InternalServerError
 
@@ -67,8 +76,14 @@ class PacientesResource(Resource):
     @jwt_required()
     def get(self):
         try:
+            header = request.headers.get('App-Finalidade')
             pacientes = Paciente.query.all()
-            return pacientes_schema.dump(pacientes)
+
+            if not header or header == 'cadastro':
+                return pacientes_schema.dump(pacientes)
+
+            return paciente_busca_schema.dump(pacientes)
+
         except Exception as e:
             return e
 
@@ -102,5 +117,17 @@ class PacienteResource(Resource):
             return {"id": id, "resultado": paciente}
         except NoAuthorizationError as e:
             raise MissingAuthorizationTokenError
+        except Exception as e:
+            raise InternalServerError
+
+
+class CovidAnamneseResource(Resource):
+    @jwt_required()
+    def post(self):
+        try:
+            body = request.get_json()
+            form = CovidAnamnese(**body)
+            db.session.add(form)
+            db.session.commit()
         except Exception as e:
             raise InternalServerError

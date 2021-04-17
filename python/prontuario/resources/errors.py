@@ -1,23 +1,23 @@
-from werkzeug.exceptions import HTTPException
+from flask_restful import HTTPException
 
 
-class InternalServerError(HTTPException):
+class InternalServerError(Exception):
     pass
 
 
-class CredentialsInvalidError(Exception):
+class CredentialsInvalidError(HTTPException):
     pass
 
 
-class SchemaValidationError(Exception):
+class SchemaValidationError(HTTPException):
     pass
 
 
-class MovieAlreadyExistsError(Exception):
+class MovieAlreadyExistsError(HTTPException):
     pass
 
 
-class UpdatingMovieError(Exception):
+class UpdatingMovieError(HTTPException):
     pass
 
 
@@ -25,7 +25,7 @@ class DeletingMovieError(Exception):
     pass
 
 
-class MovieNotExistsError(Exception):
+class NoAuthorizationError(HTTPException):
     pass
 
 
@@ -57,6 +57,13 @@ class ExpiredTokenError(Exception):
     pass
 
 
+class AttributeError(Exception):
+    pass
+
+class BadRequestError(Exception):
+    pass
+
+
 errors = {
     "InternalServerError": {
         "message": "Something went wrong",
@@ -82,7 +89,7 @@ errors = {
         "message": "Deleting movie added by other is forbidden",
         "status": 403
     },
-    "MovieNotExistsError": {
+    "NoAuthorizationError": {
         "message": "Movie with given id doesn't exists",
         "status": 400
     },
@@ -113,5 +120,13 @@ errors = {
     "MissingAuthorizationTokenError": {
         "message": " Header Authorization não encontrado na requisição",
         "status": 401
+    },
+    "AttributeError": {
+        "message": " Erro em atributo de objeto (possivelmente inexistente)",
+        "status": 500
+    },
+    "BadRequestError": {
+        "message": "Dados em formato inválido",
+        "status": 400
     }
 }

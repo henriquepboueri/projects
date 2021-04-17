@@ -64,3 +64,25 @@ class Paciente(db.Model):
     obs_gerais = db.Column(db.String)
     data_cadastro = db.Column(
         db.DateTime, nullable=False, server_default=db.FetchedValue())
+
+
+class CovidAnamnese(db.Model):
+    __tablename__ = 'covid_anamnese'
+
+    id__covid_anamnese = db.Column(db.BigInteger, primary_key=True)
+    id__paciente = db.Column(db.BigInteger)
+    id__usuario = db.Column(db.BigInteger)
+    diag_covid = db.Column(db.String(1), nullable=False)
+    febre = db.Column(db.String(1), nullable=False)
+    prob_resp = db.Column(db.String(1), nullable=False)
+    viagem = db.Column(db.String(1), nullable=False)
+    contato_infect = db.Column(db.String(1), nullable=False)
+    part_reuniao = db.Column(db.String(1), nullable=False)
+    prob_card_resp = db.Column(db.String(1), nullable=False)
+    prob_outro = db.Column(db.String(1), nullable=False)
+    usa_medic = db.Column(db.String(1), nullable=False)
+    medic_desc = db.Column(db.String(1), nullable=False)
+    temperatura = db.Column(db.Numeric(2, 2), nullable=False)
+    obs = db.Column(db.String)
+    data_cadastro = db.Column(
+        db.DateTime, nullable=False, server_default=db.FetchedValue())
