@@ -38,11 +38,11 @@ export class LoginComponent implements OnInit {
     console.log(this.login);
     this.authService.fazerLogin(this.login.email, this.login.senha).subscribe({
       next: (res) => {
-        //this._router.navigate(['/home']);
+        this._router.navigate(['/home']);
       },
       error: (err: Error) => {
         console.log(err.message);
-        // this.showErrorMessage();
+        this.showErrorMessage(err.message);
       },
     });
   }

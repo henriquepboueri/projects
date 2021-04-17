@@ -6,10 +6,30 @@
     >É paciente?</mat-checkbox
   >
   <form [formGroup]="formCovid" (ngSubmit)="onSubmit()">
-    <mat-form-field class="nome">
-      <mat-label>Nome</mat-label>
-      <input matInput placeholder="Nome" />
-    </mat-form-field>
+    <div
+      fxLayout.gt-xs="row"
+      fxLayoutAlign.gt-xs="space-between baseline"
+      fxLayoutGap.gt-xs="0.8rem"
+      fxLayout.xs="column"
+    >
+      <mat-form-field class="nome">
+        <mat-label>Nome</mat-label>
+        <input matInput placeholder="Nome" />
+      </mat-form-field>
+
+      <mat-form-field appearance="standard">
+        <mat-label>Data de cadastro</mat-label>
+        <input
+          matInput
+          formControlName="data_cadastro"
+          [matDatepicker]="dtCad"
+          disabled
+        />
+        <mat-datepicker-toggle matSuffix [for]="dtCad"></mat-datepicker-toggle>
+        <mat-datepicker #dtCad></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <h2 style="text-align: center;">Questionário</h2>
     <ol class="lista-perguntas" fxLayout="column" fxLayoutGap="2rem">
       <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Você foi diagnosticado com COVID-19 ou você suspeita que já teve ou tem
@@ -83,7 +103,7 @@
           fxLayoutAlign="start"
           fxLayoutGap="0.5rem"
           color="primary"
-          formControlName="viagem"
+          formControlName="contato_infect"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
@@ -98,7 +118,7 @@
           fxLayoutAlign="start"
           fxLayoutGap="0.5rem"
           color="primary"
-          formControlName="contato_infect"
+          formControlName="contato_sintomas"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
@@ -180,9 +200,16 @@
         </ng-container>
         <mat-divider></mat-divider>
       </li>
-      <li fxLayout="row" fxLayoutGap="0.8rem">
-        <label for="temperatura">Temperatura</label>
-        <input type="text" name="temperatura" id="">
+      <li fxLayout="column" fxLayoutGap="0.8rem">
+        <div fxLayout="row" fxLayoutGap="0.8rem">
+          <mat-label for="temperatura">Temperatura:</mat-label>
+          <input type="text" formControlName="temperatura" fxFlex="10" />
+        </div>
+        <mat-divider></mat-divider>
+      </li>
+      <li fxLayout="column">
+        <mat-label>Observações:</mat-label
+        ><textarea formControlName="obs" cols="30" rows="10"></textarea>
       </li>
     </ol>
     <button mat-raised-button type="submit" color="primary">Salvar</button>

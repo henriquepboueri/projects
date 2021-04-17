@@ -1,8 +1,5 @@
-import { ElementRef } from '@angular/core';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatchMedia } from '@angular/flex-layout/core/typings/match-media';
-import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { Component } from '@angular/core';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-covid-anamnese',
@@ -15,8 +12,20 @@ export class CovidAnamneseComponent {
 
   constructor(private _fb: FormBuilder) {
     this.formCovid = this._fb.group({
-      medic_desc: '',
+      data_cadastro: new Date(),
+      diag_covid: false,
+      febre: false,
+      prob_resp: false,
+      viagem: false,
+      contato_infect: false,
+      contato_sintomas: false,
+      part_reuniao: false,
+      prob_card_resp: false,
+      prob_outro: false,
       usa_medic: false,
+      medic_desc: '',
+      temperatura: 0,
+      obs: '',
     });
   }
 
