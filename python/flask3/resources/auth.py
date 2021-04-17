@@ -18,8 +18,8 @@ class SignupApi(Resource):
             return {'id': str(id)}, 200
         except FieldDoesNotExist:
             raise SchemaValidationError
-        except NotUniqueError:
-            raise EmailAlreadyExistsError
+        # except NotUniqueError:
+        #     raise EmailAlreadyExistsError
         except Exception as e:
             raise InternalServerError
 

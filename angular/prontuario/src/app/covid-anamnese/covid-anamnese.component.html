@@ -2,158 +2,189 @@
   <h1 id="titulo" style="text-align: center;">
     Anamnese
   </h1>
-  <form action="#" [formGroup]="formCovid" (ngSubmit)="onSubmit()">
+  <mat-checkbox #isPaciente labelPosition="before" color="primary"
+    >É paciente?</mat-checkbox
+  >
+  <form [formGroup]="formCovid" (ngSubmit)="onSubmit()">
     <mat-form-field class="nome">
       <mat-label>Nome</mat-label>
       <input matInput placeholder="Nome" />
     </mat-form-field>
-    <ol class="lista-perguntas" fxLayout.xs="column" fxLayoutGap.xs="2rem">
-      <li class="lista-pergunta">
+    <ol class="lista-perguntas" fxLayout="column" fxLayoutGap="2rem">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Você foi diagnosticado com COVID-19 ou você suspeita que já teve ou tem
         COVID-19?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="diag_covid"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Teve febre nos últimos 14 dias?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="febre"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Teve problemas respiratórios, tais como tosse ou dificuldade
         respiratória nos últimos 14 dias?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="prob_resp"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Viajou nos últimos 14 dias?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="viagem"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Teve contato com algum paciente com infecção confirmada por Coronavirus
         nos últimos 14 dias?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="viagem"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Teve contato com alguém com sintomas nos últimos 14 dias?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="contato_infect"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Participou recentemente de algum encontro, reuniões ou teve contato
         próximo com muitas pessoas desconhecidas?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="part_reuniao"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Possui algum problema crônico respiratório, cardíaco ou de pressão
         arterial?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="prob_card_resp"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
           <mat-radio-button value="2">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Possui algum outro problema de saúde?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="prob_outro"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
+        <mat-divider></mat-divider>
       </li>
-      <mat-divider></mat-divider>
-      <li class="lista-pergunta">
+      <li class="lista-pergunta" fxLayout="column" fxLayoutGap="1rem">
         Faz uso de algum medicamento?
         <mat-radio-group
           aria-label="Selecione uma opção:"
           fxLayout="row"
-          fxLayoutAlign.xs="start"
-          fxLayoutGap.xs="1rem"
+          fxLayoutAlign="start"
+          fxLayoutGap="0.5rem"
           color="primary"
+          formControlName="usa_medic"
           #pergMedicamento
         >
-          <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button (click)="onUsaMedic(true)" value="1"
+            >Sim</mat-radio-button
+          >
+          <mat-radio-button (click)="onUsaMedic(false)" value="0"
+            >Não</mat-radio-button
+          >
         </mat-radio-group>
-        <!-- <div *ngIf="pergMedicamento.tabIndex==-1">Teste</div> -->
+        <ng-container *ngIf="usaMedic">
+          <mat-label>Quais?</mat-label
+          ><textarea
+            formControlName="medic_desc"
+            cols="30"
+            rows="10"
+          ></textarea>
+        </ng-container>
+        <mat-divider></mat-divider>
+      </li>
+      <li fxLayout="row" fxLayoutGap="0.8rem">
+        <label for="temperatura">Temperatura</label>
+        <input type="text" name="temperatura" id="">
       </li>
     </ol>
+    <button mat-raised-button type="submit" color="primary">Salvar</button>
   </form>
 </div>

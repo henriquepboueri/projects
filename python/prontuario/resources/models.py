@@ -77,6 +77,7 @@ class CovidAnamnese(db.Model):
     prob_resp = db.Column(db.String(1), nullable=False)
     viagem = db.Column(db.String(1), nullable=False)
     contato_infect = db.Column(db.String(1), nullable=False)
+    contato_sintomas = db.Column(db.String(1), nullable=False)
     part_reuniao = db.Column(db.String(1), nullable=False)
     prob_card_resp = db.Column(db.String(1), nullable=False)
     prob_outro = db.Column(db.String(1), nullable=False)

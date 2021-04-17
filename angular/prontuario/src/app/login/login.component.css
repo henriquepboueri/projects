@@ -14,7 +14,7 @@ mat-card {
 }
 
 @media screen and (max-width: 599px) {
-  mat-card {
+  mat-card, form {
     height: 100%;
     border-radius: 0;
   }
@@ -23,12 +23,13 @@ mat-card {
   }
 }
 
-mat-card form {
+/* mat-card form {
   padding: 0.5rem;
-}
+} */
 
 mat-card-content {
   margin: 0;
+  padding: 0.5rem;
 }
 
 mat-card-actions {

@@ -15,6 +15,7 @@ mail = Mail(app)
 from resources.routes import initialize_routes
 
 api = Api(app, errors=errors)
+# api = Api(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
 

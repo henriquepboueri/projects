@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatchMedia } from '@angular/flex-layout/core/typings/match-media';
 import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-covid-anamnese',
@@ -7,11 +10,23 @@ import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./covid-anamnese.component.css'],
 })
 export class CovidAnamneseComponent {
-  public formCovid: FormGroup;
+  public formCovid: FormGroup = new FormGroup({});
+  public usaMedic: boolean = false;
 
   constructor(private _fb: FormBuilder) {
-    this.formCovid = this._fb.group(['']);
+    this.formCovid = this._fb.group({
+      medic_desc: '',
+      usa_medic: false,
+    });
   }
 
-  onSubmit() {}
+  onInit() {}
+
+  onSubmit() {
+    console.log(this.formCovid.value);
+  }
+
+  onUsaMedic(v: boolean) {
+    this.usaMedic = v;
+  }
 }

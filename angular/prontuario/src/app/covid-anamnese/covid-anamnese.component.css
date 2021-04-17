@@ -15,7 +15,7 @@
   font-size: 1.2rem;
 }
 
-.lista-pergunta mat-radio-button {
+.lista-pergunta mat-radio-button, mat-label {
   font-size: 1.1rem;
 }
 
