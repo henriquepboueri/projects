@@ -60,11 +60,28 @@ class ExpiredTokenError(Exception):
 class AttributeError(Exception):
     pass
 
+
 class BadRequestError(Exception):
     pass
 
 
+class ExpiredSignatureError(Exception):
+    pass
+
+
+class NoContentError(HTTPException):
+    pass
+
+
 errors = {
+    "NoContentError": {
+        "message": "Sem conteúdo",
+        "status": 204
+    },
+    "ExpiredSignatureError": {
+        "message": "Token expirado",
+        "status": 500
+    },
     "InternalServerError": {
         "message": "Something went wrong",
         "status": 500

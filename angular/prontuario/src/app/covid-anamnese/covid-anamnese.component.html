@@ -12,9 +12,34 @@
       fxLayoutGap.gt-xs="0.8rem"
       fxLayout.xs="column"
     >
-      <mat-form-field class="nome">
+      <!-- <mat-form-field class="nome">
         <mat-label>Nome</mat-label>
         <input matInput placeholder="Nome" />
+      </mat-form-field> -->
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Search"
+          aria-label="State"
+          [matAutocomplete]="auto"
+          [formControl]="searchMoviesCtrl"
+        />
+        <mat-autocomplete formControlName="id__paciente" #auto="matAutocomplete">
+          <mat-option *ngIf="isLoading" class="is-loading"
+            >Loading...</mat-option
+          >
+          <ng-container *ngIf="!isLoading">
+            <mat-option
+              *ngFor="let paciente of pacientes"
+              [value]="paciente.id__paciente"
+            >
+              <span
+                >[{{paciente.id__paciente}}] <b>{{paciente.nome}}</b> -
+                {{paciente.dt_nasc}}</span
+              >
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
       </mat-form-field>
 
       <mat-form-field appearance="standard">

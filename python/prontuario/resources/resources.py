@@ -1,17 +1,18 @@
 from flask import request
+from flask.signals import request_finished
 from resources.utils import genExpDateInMilSecs
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_restful import Resource
 import datetime
 from app import db
-from .schemas import usuarios_schema, usuario_schema, paciente_schema, pacientes_schema, paciente_busca_schema
+from .schemas import PacienteSchema, usuarios_schema, usuario_schema, paciente_schema, pacientes_schema
 from .models import CovidAnamnese, Paciente, Usuario
-from resources.errors import BadRequestError, CredentialsInvalidError, MissingAuthorizationTokenError, UnauthorizedError, InternalServerError
+from resources.errors import BadRequestError, CredentialsInvalidError, MissingAuthorizationTokenError, NoContentError, UnauthorizedError, InternalServerError
 from flask_jwt_extended.exceptions import NoAuthorizationError
 
 
 class UsuariosResource(Resource):
-    @jwt_required()
+    # @jwt_required()
     def get(self):
         try:
             # usuario = Usuario.query.get(get_jwt_identity())
@@ -37,6 +38,17 @@ class UsuarioResource(Resource):
             return usuario_schema.dump(usuario)
         except Exception as e:
             return e
+
+    def get(self, id):
+        # try:
+        usuario = Usuario.query.get(id)
+        if not usuario:
+            # essa exceção é gerida automaticamente pelo Flask, gerando uma mensagem
+            # de acordo com o conteúdo do errors, no errors.py
+            raise NoContentError
+        return usuario_schema.dump(usuario)
+        # except Exception:
+        #     raise InternalServerError
 
 
 class LoginResource(Resource):
@@ -78,11 +90,15 @@ class PacientesResource(Resource):
         try:
             header = request.headers.get('App-Finalidade')
             pacientes = Paciente.query.all()
+            # print(header)
 
             if not header or header == 'cadastro':
-                return pacientes_schema.dump(pacientes)
+                return PacienteSchema(many=True).dump(pacientes)
 
-            return paciente_busca_schema.dump(pacientes)
+            pacientes_schema = PacienteSchema(
+                only=['id__paciente', 'nome', 'dt_nasc'], many=True)
+
+            return pacientes_schema.dump(pacientes)
 
         except Exception as e:
             return e
@@ -96,7 +112,7 @@ class PacientesResource(Resource):
             db.session.commit()
             return paciente_schema.dump(paciente)
         except Exception as e:
-            return e
+            raise InternalServerError
 
 
 class PacienteResource(Resource):

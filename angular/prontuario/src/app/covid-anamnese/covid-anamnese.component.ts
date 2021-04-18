@@ -1,17 +1,34 @@
-import { Component } from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  DoCheck,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { Form, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { debounceTime, finalize, switchMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-covid-anamnese',
   templateUrl: './covid-anamnese.component.html',
   styleUrls: ['./covid-anamnese.component.css'],
 })
-export class CovidAnamneseComponent {
+export class CovidAnamneseComponent implements OnInit {
   public formCovid: FormGroup = new FormGroup({});
   public usaMedic: boolean = false;
+  searchMoviesCtrl = new FormControl();
+  pacientes: any;
+  isLoading = false;
+  errorMsg: string;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private http: HttpClient) {
     this.formCovid = this._fb.group({
+      id__paciente: 0,
+      id__usuario: 0,
       data_cadastro: new Date(),
       diag_covid: false,
       febre: false,
@@ -29,7 +46,37 @@ export class CovidAnamneseComponent {
     });
   }
 
-  onInit() {}
+  ngOnInit() {
+    this.searchMoviesCtrl.valueChanges
+      .pipe(
+        debounceTime(500),
+        tap(() => {
+          this.errorMsg = '';
+          this.pacientes = [];
+          this.isLoading = true;
+        }),
+        switchMap((value) =>
+          this.http
+            .get('http://localhost:5000/api/v1/pacientes', {
+              // headers: { 'App-Finalidade': 'consulta' },
+              headers: new HttpHeaders().set('App-Finalidade', 'consulta'),
+            })
+            .pipe(
+              finalize(() => {
+                this.isLoading = false;
+              })
+            )
+        )
+      )
+      .subscribe((data) => {
+        if (data == undefined || data == []) {
+          this.pacientes = [];
+        } else {
+          this.errorMsg = '';
+          this.pacientes = data;
+        }
+      });
+  }
 
   onSubmit() {
     console.log(this.formCovid.value);

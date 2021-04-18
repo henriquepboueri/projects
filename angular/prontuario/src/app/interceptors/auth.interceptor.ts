@@ -24,6 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const url = request.url;
 
     console.log('Intercepted!');
+    console.log(request.headers);
     let token = null;
     return this.authService.usuarioSubject.pipe(
       take(1),
