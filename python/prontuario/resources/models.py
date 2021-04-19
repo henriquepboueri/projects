@@ -4,6 +4,12 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 from app import db
 
 
+class Login():
+    def __init__(self, email: str, senha: str, login_date) -> None:
+        self.email = email
+        self.senha = senha
+
+
 class TipoUsuario(db.Model):
     __tablename__ = 'tipo_usuario'
 

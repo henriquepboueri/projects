@@ -1,8 +1,17 @@
 from marshmallow.decorators import post_load
 from marshmallow import Schema, fields
 from app import ma
-from .models import Paciente, TipoUsuario, Usuario
+from .models import Login, Paciente, TipoUsuario, Usuario
 
+
+class LoginSchema(ma.Schema):
+    email = fields.Str()
+    senha = fields.Str()
+    login_date = fields.DateTime()
+
+    @post_load
+    def make_login(self, data, **kwargs):
+        return Login(**data)
 
 # class TipoUsuarioSchema(Schema):
 #     # class Meta:
@@ -10,6 +19,7 @@ from .models import Paciente, TipoUsuario, Usuario
 #     id__tipo_usuario = fields.Integer()
 #     nome = fields.String()
 #     data_cadastro = fields.DateTime()
+
 
 class TipoUsuarioSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

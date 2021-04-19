@@ -72,11 +72,17 @@ class ExpiredSignatureError(Exception):
 class NoContentError(HTTPException):
     pass
 
+class OperationalError(Exception):
+    pass
 
 errors = {
     "NoContentError": {
         "message": "Sem conteúdo",
         "status": 204
+    },
+    "OperationalError": {
+        "message": "Erro operacional",
+        "status": 400
     },
     "ExpiredSignatureError": {
         "message": "Token expirado",

@@ -5,10 +5,12 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from flask_restful import Resource
 import datetime
 from app import db
-from .schemas import PacienteSchema, usuarios_schema, usuario_schema, paciente_schema, pacientes_schema
-from .models import CovidAnamnese, Paciente, Usuario
+from .schemas import LoginSchema, PacienteSchema, UsuarioSchema, usuarios_schema, usuario_schema, paciente_schema, pacientes_schema
+from .models import CovidAnamnese, Login, Paciente, Usuario
 from resources.errors import BadRequestError, CredentialsInvalidError, MissingAuthorizationTokenError, NoContentError, UnauthorizedError, InternalServerError
 from flask_jwt_extended.exceptions import NoAuthorizationError
+from marshmallow.exceptions import ValidationError
+from MySQLdb._exceptions import OperationalError
 
 
 class UsuariosResource(Resource):
@@ -21,7 +23,8 @@ class UsuariosResource(Resource):
             #     return {'erro': "Usuário não é administrador"}, 401
 
             usuarios = Usuario.query.all()
-            return usuarios_schema.dump(usuarios)
+            return UsuarioSchema().dump(usuarios, many=True)
+            # return usuarios_schema.dump(usuarios)
         except Exception as e:
             raise InternalServerError
 
@@ -46,7 +49,8 @@ class UsuarioResource(Resource):
             # essa exceção é gerida automaticamente pelo Flask, gerando uma mensagem
             # de acordo com o conteúdo do errors, no errors.py
             raise NoContentError
-        return usuario_schema.dump(usuario)
+        return UsuarioSchema().dump(usuario)
+        # return usuario_schema.dump(usuario)
         # except Exception:
         #     raise InternalServerError
 
@@ -54,7 +58,15 @@ class UsuarioResource(Resource):
 class LoginResource(Resource):
     def post(self):
         try:
+            # retorna um dictionary
+            schema = LoginSchema()
             body = request.get_json()
+            try:
+                result = LoginSchema().load(body)
+            except ValidationError as err:
+                print(err.messages)
+                print(err.valid_data)
+
             if 'email' not in body or 'senha' not in body:
                 raise BadRequestError
 
@@ -88,6 +100,7 @@ class PacientesResource(Resource):
     @jwt_required()
     def get(self):
         try:
+            schema = PacienteSchema()
             header = request.headers.get('App-Finalidade')
             pacientes = Paciente.query.all()
             # print(header)
@@ -111,6 +124,9 @@ class PacientesResource(Resource):
             db.session.add(paciente)
             db.session.commit()
             return paciente_schema.dump(paciente)
+        except OperationalError as oerr:
+            print(oerr)
+            raise OperationalError
         except Exception as e:
             raise InternalServerError
 
