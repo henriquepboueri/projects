@@ -77,7 +77,7 @@ export class SignatureFieldComponent
   }
 
   ngOnInit(): void {
-    console.log(this.signaturePad);
+    this.options = { canvasHeight: 150, canvasWidth: 300 };
   }
 
   public ngAfterViewInit(): void {
