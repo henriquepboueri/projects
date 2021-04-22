@@ -6,6 +6,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+import { SignaturePad, SignaturePadModule } from 'angular2-signaturepad';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -22,14 +24,15 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     LoginComponent,
   ],
   imports: [
+    SharedModule,
     FormsModule,
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule,
     FlexLayoutModule,
+    SignaturePadModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'pt-PT' },

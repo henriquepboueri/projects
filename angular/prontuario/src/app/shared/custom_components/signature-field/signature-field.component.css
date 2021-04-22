@@ -1,0 +1,10 @@
+#clearPad:active {
+  /* text-decoration: underline; */
+  font-size: 110%;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#clearPad {
+  display: block;
+}

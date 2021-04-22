@@ -1,12 +1,12 @@
 from marshmallow.decorators import post_load
 from marshmallow import Schema, fields
 from app import ma
-from .models import Login, Paciente, TipoUsuario, Usuario
+from .models import  CovidAnamnese, Login, Paciente, TipoUsuario, Usuario
 
 
 class LoginSchema(ma.Schema):
-    email = fields.Str()
-    senha = fields.Str()
+    email = fields.Str(required=True)
+    senha = fields.Str(required=True)
     login_date = fields.DateTime()
 
     @post_load
@@ -50,9 +50,17 @@ class PacienteSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Paciente
 
-    # @post_load
-    # def make_paciente(self, data, **kwargs):
-    #     return Paciente(**data)
+    @post_load
+    def make_paciente(self, data, **kwargs):
+        return Paciente(**data)
+
+class CovidSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = CovidAnamnese
+
+    @post_load
+    def make_covid(self, data, **kwargs):
+        return CovidAnamnese(**data)
 
 
 # class PacienteBuscaSchema(ma.Schema):

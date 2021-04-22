@@ -5,7 +5,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identi
 from flask_restful import Resource
 import datetime
 from app import db
-from .schemas import LoginSchema, PacienteSchema, UsuarioSchema, usuarios_schema, usuario_schema, paciente_schema, pacientes_schema
+from .schemas import CovidSchema, LoginSchema, PacienteSchema, UsuarioSchema, usuarios_schema, usuario_schema, paciente_schema, pacientes_schema
 from .models import CovidAnamnese, Login, Paciente, Usuario
 from resources.errors import BadRequestError, CredentialsInvalidError, MissingAuthorizationTokenError, NoContentError, UnauthorizedError, InternalServerError
 from flask_jwt_extended.exceptions import NoAuthorizationError
@@ -28,8 +28,6 @@ class UsuariosResource(Resource):
         except Exception as e:
             raise InternalServerError
 
-
-class UsuarioResource(Resource):
     @jwt_required()
     def post(self):
         try:
@@ -41,6 +39,9 @@ class UsuarioResource(Resource):
             return usuario_schema.dump(usuario)
         except Exception as e:
             return e
+
+
+class UsuarioResource(Resource):
 
     def get(self, id):
         # try:
@@ -58,25 +59,25 @@ class UsuarioResource(Resource):
 class LoginResource(Resource):
     def post(self):
         try:
-            # retorna um dictionary
-            schema = LoginSchema()
+            # schema = LoginSchema()
             body = request.get_json()
             try:
-                result = LoginSchema().load(body)
+                login = LoginSchema().load(body)
             except ValidationError as err:
                 print(err.messages)
                 print(err.valid_data)
-
-            if 'email' not in body or 'senha' not in body:
                 raise BadRequestError
 
+            # if 'email' not in body or 'senha' not in body:
+            #     raise BadRequestError
+
             usuario: Usuario = Usuario.query.filter_by(
-                email=body.get('email')).first()
+                email=login.email).first()
 
             if not usuario:
                 raise CredentialsInvalidError
 
-            authorized = usuario.check_password(body.get('senha'))
+            authorized = usuario.check_password(login.senha)
 
             if not authorized:
                 raise CredentialsInvalidError
@@ -100,10 +101,17 @@ class PacientesResource(Resource):
     @jwt_required()
     def get(self):
         try:
-            schema = PacienteSchema()
             header = request.headers.get('App-Finalidade')
-            pacientes = Paciente.query.all()
-            # print(header)
+            args = request.args
+            obj_attr = Paciente.__getattribute__(Paciente, 'nome')
+
+            if args and 'field_name' in args.keys() and 'field_value' in args.keys():
+                filter_field, filter_value = args['field_name'], args['field_value']
+                obj_attr = Paciente.__getattribute__(Paciente, filter_field)
+                pacientes = Paciente.query.filter(
+                    obj_attr.ilike(f'%{filter_value}%')).order_by(obj_attr.asc())
+            else:
+                pacientes = Paciente.query.order_by(obj_attr.asc()).all()
 
             if not header or header == 'cadastro':
                 return PacienteSchema(many=True).dump(pacientes)
@@ -120,7 +128,8 @@ class PacientesResource(Resource):
     def post(self):
         try:
             body = request.get_json()
-            paciente = Paciente(**body)
+            # paciente2 = Paciente(**body)
+            paciente = PacienteSchema().load(body)
             db.session.add(paciente)
             db.session.commit()
             return paciente_schema.dump(paciente)
@@ -153,13 +162,18 @@ class PacienteResource(Resource):
             raise InternalServerError
 
 
-class CovidAnamneseResource(Resource):
+class CovidListResource(Resource):
     @jwt_required()
     def post(self):
         try:
             body = request.get_json()
-            form = CovidAnamnese(**body)
-            db.session.add(form)
+            covid = CovidSchema().load(body)
+            db.session.add(covid)
             db.session.commit()
         except Exception as e:
             raise InternalServerError
+
+    @jwt_required()
+    def get(self):
+        result = CovidAnamnese.query.all()
+        return CovidSchema().dump(result, many=True)

@@ -1,5 +1,5 @@
 from flask_restful import Api
-from .resources import CovidAnamneseResource, LoginResource, PacienteResource, PacientesResource, UsuarioResource, UsuariosResource
+from .resources import  CovidListResource, LoginResource, PacienteResource, PacientesResource, UsuarioResource, UsuariosResource
 
 
 def initialize_routes(api: Api):
@@ -14,4 +14,4 @@ def initialize_routes(api: Api):
     api.add_resource(PacienteResource, '/api/v1/pacientes/<id>')
     api.add_resource(PacientesResource, '/api/v1/pacientes')
 
-    api.add_resource(CovidAnamneseResource, '/api/v1/covid')
+    api.add_resource(CovidListResource, '/api/v1/covid')

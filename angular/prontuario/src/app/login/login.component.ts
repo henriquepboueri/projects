@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { ControlValueAccessor, NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { LoginModel } from '../models/login.model';
@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private authService: AuthService
   ) {}
+
 
   ngOnInit(): void {
     this.authService.usuarioSubject.subscribe((res) => {

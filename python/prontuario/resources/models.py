@@ -5,7 +5,7 @@ from app import db
 
 
 class Login():
-    def __init__(self, email: str, senha: str, login_date) -> None:
+    def __init__(self, email: str, senha: str) -> None:
         self.email = email
         self.senha = senha
 

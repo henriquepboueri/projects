@@ -2,36 +2,36 @@
   <h1 id="titulo" style="text-align: center;">
     Anamnese
   </h1>
-  <mat-checkbox #isPaciente labelPosition="before" color="primary"
+  <mat-checkbox [(ngModel)]="isPaciente" labelPosition="before" color="primary"
     >É paciente?</mat-checkbox
   >
   <form [formGroup]="formCovid" (ngSubmit)="onSubmit()">
     <div
+      fxLayout.xs="column"
       fxLayout.gt-xs="row"
       fxLayoutAlign.gt-xs="space-between baseline"
       fxLayoutGap.gt-xs="0.8rem"
-      fxLayout.xs="column"
     >
-      <!-- <mat-form-field class="nome">
-        <mat-label>Nome</mat-label>
-        <input matInput placeholder="Nome" />
-      </mat-form-field> -->
-      <mat-form-field>
+      <mat-form-field
+        fxFlex.gt-xs="70"
+        fxFill
+        [ngClass]="{toggleSearchBox: !isPaciente}"
+      >
         <input
           matInput
-          placeholder="Search"
+          placeholder="Nome do paciente"
           aria-label="State"
           [matAutocomplete]="auto"
-          [formControl]="searchMoviesCtrl"
+          [formControl]="search"
         />
-        <mat-autocomplete formControlName="id__paciente" #auto="matAutocomplete">
+        <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngIf="isLoading" class="is-loading"
-            >Loading...</mat-option
+            >Carregando...</mat-option
           >
           <ng-container *ngIf="!isLoading">
             <mat-option
               *ngFor="let paciente of pacientes"
-              [value]="paciente.id__paciente"
+              [value]="paciente.nome"
             >
               <span
                 >[{{paciente.id__paciente}}] <b>{{paciente.nome}}</b> -
@@ -42,7 +42,36 @@
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-form-field appearance="standard">
+      <mat-form-field
+        fxFlex.gt-xs="70"
+        fxFill
+        [ngClass]="{toggleSearchBox: isPaciente}"
+      >
+        <input
+          matInput
+          placeholder="Nome do usuário"
+          aria-label="State"
+          [matAutocomplete]="auto"
+          [formControl]="search"
+          formControlName="id__usuario"
+          [value]="1212"
+        />
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngIf="isLoading" class="is-loading"
+            >Carregando...</mat-option
+          >
+          <ng-container *ngIf="!isLoading">
+            <mat-option *ngFor="let paciente of pacientes">
+              <span
+                >[{{paciente.id__paciente}}] <b>{{paciente.nome}}</b> -
+                {{paciente.dt_nasc}}</span
+              >
+            </mat-option>
+          </ng-container>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field fxFlex.gt-xs="30" appearance="standard">
         <mat-label>Data de cadastro</mat-label>
         <input
           matInput
@@ -235,8 +264,21 @@
       <li fxLayout="column">
         <mat-label>Observações:</mat-label
         ><textarea formControlName="obs" cols="30" rows="10"></textarea>
+        <mat-divider></mat-divider>
+      </li>
+      <li fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="0.5rem">
+        <mat-label style="text-align: justify;">
+          Atesto para os devidos fins que não apresento clinicamente nenhum
+          sintoma correspondente ao COVID-19, e que possuo conhecimento pra tal.
+        </mat-label>
+        <div fxLayout="column" fxLayoutAlign="start center">
+          <mat-label>Assinatura</mat-label>
+          <app-signature-field
+            formControlName="assinatura"
+          ></app-signature-field>
+        </div>
       </li>
     </ol>
-    <button mat-raised-button type="submit" color="primary">Salvar</button>
+    <button mat-raised-button type="submit" color="primary">Enviar</button>
   </form>
 </div>
