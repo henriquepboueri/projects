@@ -12,7 +12,7 @@
       fxLayoutAlign.gt-xs="space-between baseline"
       fxLayoutGap.gt-xs="0.8rem"
     >
-      <mat-form-field
+      <!-- <mat-form-field
         fxFlex.gt-xs="70"
         fxFill
         [ngClass]="{toggleSearchBox: !isPaciente}"
@@ -20,18 +20,18 @@
         <input
           matInput
           placeholder="Nome do paciente"
-          aria-label="State"
           [matAutocomplete]="auto"
-          [formControl]="search"
+          [formControlName]="'id__paciente'"
+          #searchInput
+          (input)="search(searchInput.value)"
+          value="1212"
         />
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngIf="isLoading" class="is-loading"
-            >Carregando...</mat-option
-          >
+          <mat-option *ngIf="isLoading">Carregando...</mat-option>
           <ng-container *ngIf="!isLoading">
             <mat-option
-              *ngFor="let paciente of pacientes"
-              [value]="paciente.nome"
+              *ngFor="let paciente of pacientes$ | async"
+              [value]="paciente.id__paciente"
             >
               <span
                 >[{{paciente.id__paciente}}] <b>{{paciente.nome}}</b> -
@@ -40,44 +40,29 @@
             </mat-option>
           </ng-container>
         </mat-autocomplete>
-      </mat-form-field>
+      </mat-form-field> -->
 
       <mat-form-field
-        fxFlex.gt-xs="70"
-        fxFill
-        [ngClass]="{toggleSearchBox: isPaciente}"
+        [ngClass]="{'toggleSearchBox': !isPaciente}"
+        appearance="legacy"
       >
-        <input
-          matInput
-          placeholder="Nome do usuário"
-          aria-label="State"
-          [matAutocomplete]="auto"
-          [formControl]="search"
-          formControlName="id__usuario"
-          [value]="1212"
-        />
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngIf="isLoading" class="is-loading"
-            >Carregando...</mat-option
+        <mat-label>Nome do paciente</mat-label>
+        <mat-select formControlName="id__paciente">
+          <mat-option>--</mat-option>
+          <mat-option
+            *ngFor="let paciente of pacientes$ | async"
+            [value]="paciente.id__paciente"
           >
-          <ng-container *ngIf="!isLoading">
-            <mat-option *ngFor="let paciente of pacientes">
-              <span
-                >[{{paciente.id__paciente}}] <b>{{paciente.nome}}</b> -
-                {{paciente.dt_nasc}}</span
-              >
-            </mat-option>
-          </ng-container>
-        </mat-autocomplete>
+            Nome: {{ paciente?.nome }} - Data Nasc: {{ paciente.dt_nasc}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
-
       <mat-form-field fxFlex.gt-xs="30" appearance="standard">
         <mat-label>Data de cadastro</mat-label>
         <input
           matInput
           formControlName="data_cadastro"
           [matDatepicker]="dtCad"
-          disabled
         />
         <mat-datepicker-toggle matSuffix [for]="dtCad"></mat-datepicker-toggle>
         <mat-datepicker #dtCad></mat-datepicker>
@@ -97,7 +82,7 @@
           formControlName="diag_covid"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
@@ -113,7 +98,7 @@
           formControlName="febre"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
@@ -129,7 +114,7 @@
           formControlName="prob_resp"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
@@ -144,7 +129,7 @@
           formControlName="viagem"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
@@ -160,7 +145,7 @@
           formControlName="contato_infect"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
@@ -175,7 +160,7 @@
           formControlName="contato_sintomas"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
@@ -191,7 +176,7 @@
           formControlName="part_reuniao"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
@@ -207,7 +192,7 @@
           formControlName="prob_card_resp"
         >
           <mat-radio-button value="1">Sim</mat-radio-button>
-          <mat-radio-button value="2">Não</mat-radio-button>
+          <mat-radio-button value="0">Não</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
       </li>
