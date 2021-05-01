@@ -1,0 +1,33 @@
+#titulo {
+  display: block;
+}
+
+.container {
+  padding: 1.2rem;
+}
+
+.lista-perguntas {
+  padding-left: 0.3rem;
+  list-style: none;
+}
+
+.lista-pergunta {
+  font-size: 1.2rem;
+}
+
+.lista-pergunta mat-radio-button, mat-label {
+  font-size: 1.1rem;
+}
+
+.pergunta {
+  display: flex;
+}
+
+.nome {
+  font-size: 1.1rem;
+  width: 100%;
+}
+
+.toggleSearchBox {
+  display: none !important;
+}

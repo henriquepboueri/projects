@@ -1,5 +1,4 @@
 from flask import request
-from flask.signals import request_finished
 from resources.utils import genExpDateInMilSecs
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask_restful import Resource
@@ -7,10 +6,10 @@ import datetime
 from app import db
 from .schemas import CovidSchema, LoginSchema, PacienteSchema, UsuarioSchema, usuarios_schema, usuario_schema, paciente_schema, pacientes_schema
 from .models import CovidAnamnese, Login, Paciente, Usuario
-from resources.errors import BadRequestError, CredentialsInvalidError, MissingAuthorizationTokenError, NoContentError, UnauthorizedError, InternalServerError
+from resources.errors import BadRequestError, CredentialsInvalidError, MissingAuthorizationTokenError, NoContentError, UnauthorizedError, InternalServerError, _IntegrityError
 from flask_jwt_extended.exceptions import NoAuthorizationError
 from marshmallow.exceptions import ValidationError
-from MySQLdb._exceptions import OperationalError
+from sqlalchemy.exc import IntegrityError
 
 
 class UsuariosResource(Resource):
@@ -133,9 +132,10 @@ class PacientesResource(Resource):
             db.session.add(paciente)
             db.session.commit()
             return paciente_schema.dump(paciente)
-        except OperationalError as oerr:
-            print(oerr)
-            raise OperationalError
+        except IntegrityError:
+            raise _IntegrityError
+        except ValidationError:
+            raise BadRequestError
         except Exception as e:
             raise InternalServerError
 

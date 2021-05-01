@@ -1,0 +1,66 @@
+mat-card-header {
+  padding-top: 1rem;
+  /* background-color: #3f51b5; */
+  background-color: #D32F2F;
+  border-radius: 4px 4px 0 0;
+}
+
+mat-card-header * {
+  color: white;
+}
+
+mat-card {
+  padding: 0;
+}
+
+@media screen and (max-width: 599px) {
+  mat-card, form {
+    height: 100%;
+    border-radius: 0;
+  }
+  mat-card-header {
+    border-radius: 0;
+  }
+}
+
+/* mat-card form {
+  padding: 0.5rem;
+} */
+
+mat-card-content {
+  margin: 0;
+  padding: 0.5rem;
+}
+
+mat-card-actions {
+  margin: 0;
+  padding: 0;
+}
+
+mat-card-actions button {
+  width: 25%;
+  background-color: #D32F2F;
+  color: white;
+}
+
+mat-card-actions a {
+  margin: 1rem 0;
+  text-decoration: none;
+}
+
+mat-card-actions a:visited {
+  /* color: #3f51b5; */
+  color: #D32F2F;
+}
+
+.container {
+  background: rgb(0, 91, 161);
+  background-image: url("../../../assets/bg-weed.jpg");
+
+  /* background: rgb(236, 230, 222);
+  background: radial-gradient(
+    circle,
+    rgba(236, 230, 222, 1) 0%,
+    rgba(232, 226, 218, 1) 100%
+  ); */
+}

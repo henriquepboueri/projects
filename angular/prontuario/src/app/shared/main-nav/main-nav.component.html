@@ -1,0 +1,66 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <!-- <mat-nav-list>
+      <a mat-list-item routerLink="/covid">Covid - Anamnese</a>
+      <a mat-list-item href="#">Cadastros</a>
+      <a mat-list-item href="#">Prontuários</a>
+    </mat-nav-list> -->
+    <mat-accordion>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Cadastros
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+          <li><a href="#">Usuários</a></li>
+          <li><a routerLink="/pacientes">Pacientes</a></li>
+        </ul>
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Prontuários
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+          <li><a href="#">Geral</a></li>
+          <li><a href="#">Cirúrgico</a></li>
+          <li><a href="#">Dentístico</a></li>
+        </ul>
+      </mat-expansion-panel>
+      <mat-expansion-panel hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Covid
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <ul>
+          <li><a href="#" routerLink="/covid">Formulário</a></li>
+        </ul>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async"
+      >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span>Controle de Prontuário</span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,18 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CovidAnamneseComponent } from './covid-anamnese/covid-anamnese.component';
+
 import { AuthGuard } from './guards/auth.guard';
-import { LoginComponent } from './login/login.component';
-import { MainNavComponent } from './main-nav/main-nav.component';
+import { LoginComponent } from './modules/login/login.component';
+import { MainNavComponent } from './shared/main-nav/main-nav.component';
 
 const routes: Routes = [
-  {
-    path: 'covid',
-    // outlet: 'nav-router',
-    component: MainNavComponent,
-    canActivate: [AuthGuard],
-    children: [{ path: '', component: CovidAnamneseComponent }],
-  },
   {
     path: 'home',
     canActivate: [AuthGuard],
@@ -21,6 +14,18 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'pacientes',
+    loadChildren: () =>
+      import('./modules/paciente/paciente.module').then(
+        (m) => m.PacienteModule
+      ),
+  },
+  {
+    path: 'covid',
+    loadChildren: () =>
+      import('./modules/covid/covid.module').then((m) => m.CovidModule),
   },
   {
     path: '',

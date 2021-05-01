@@ -41,7 +41,6 @@ export class SignatureFieldComponent
   }
 
   writeValue(value: any): void {
-    console.log(value);
     if (!value) {
       return;
     }
