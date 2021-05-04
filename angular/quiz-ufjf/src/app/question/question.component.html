@@ -1,20 +1,13 @@
 <div fxLayout="column" fxLayoutGap="12px">
-  <label>{{ question.id }} - {{ question.text}}</label>
+  <label id="question-title">{{ question.id }} - {{ question.text}}</label>
 
   <mat-radio-group fxLayout="column" fxLayoutGap="10px">
     <mat-radio-button
       (click)="onSelectOption(option)"
       *ngFor="let option of question.options; index as i"
+      [value]="i"
     >
-      {{ option.id}} - {{option.text}}
+      {{option.text}}
     </mat-radio-button>
   </mat-radio-group>
 </div>
-
-<!-- <div>Your favorite season is: {{favoriteSeason}}</div> -->
-<!-- <p
-  (click)="onSelectOption(option)"
-  *ngFor="let option of question.options; index as i"
->
-  {{ option.id}} - {{option.text}}
-</p> -->

@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { MatRadioGroup } from '@angular/material/radio';
 
 import { Question } from '../models/question.model';
 
@@ -13,6 +21,7 @@ export class QuestionComponent implements OnInit {
     questionId: number;
     answerId: number;
   }>();
+  @ViewChild(MatRadioGroup) radioGroup: MatRadioGroup;
 
   constructor() {}
 
@@ -21,7 +30,7 @@ export class QuestionComponent implements OnInit {
   onSelectOption(optionId) {
     this.chosenOption.emit({
       questionId: this.question.id,
-      answerId: optionId,
+      answerId: optionId.id,
     });
   }
 }

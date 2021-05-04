@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-
-import { interval, Subscription } from 'rxjs';
-import { FirebaseService } from './firebase.service';
-
-import { Question } from './models/question.model';
-import { QuestionsService } from './questions.service';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription, interval } from 'rxjs';
+import { FirebaseService } from '../firebase.service';
+import { Question } from '../models/question.model';
+import { QuestionsService } from '../questions.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-quiz',
+  templateUrl: './quiz.component.html',
+  styleUrls: ['./quiz.component.css'],
 })
-export class AppComponent {
+export class QuizComponent implements OnInit {
+  matricula: '';
   title = 'quiz-ufjf';
   timer = '00:00';
   timerInt = 0;
@@ -27,7 +26,8 @@ export class AppComponent {
 
   constructor(
     private _service: QuestionsService,
-    private _firebase: FirebaseService
+    private _firebase: FirebaseService,
+    private _route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +37,11 @@ export class AppComponent {
       .subscribe((res) => {
         res.forEach((doc) => console.log(doc.data()));
       });*/
+    this._route.queryParams.subscribe((params) => {
+      if (params['matricula']) {
+        this.matricula = params['matricula'];
+      }
+    });
     this.questions = this._service.getQuestions();
     this.timerSubscription = interval(1000).subscribe({
       next: (val) => {
@@ -73,7 +78,7 @@ export class AppComponent {
       this._firebase
         .postResultado({
           acertos: this.rightAnswers.length,
-          matricula: '123456',
+          matricula: this.matricula,
           tempo: this.timerInt,
         })
         .then((res) => {

@@ -1,0 +1,73 @@
+<div class="container" fxLayout="column" fxLayoutAlign="center center">
+  <!-- <div class="quiz-box" fxLayout="column" fxLayoutAlign="center center">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nome do participante</mat-label>
+      <input matInput placeholder="Ex. João" />
+    </mat-form-field>
+    <p>Pergunta {{currentQuestionIndex + 1}} de {{questions.length }}</p>
+    <app-question
+      [question]="questions[currentQuestionIndex]"
+      (chosenOption)="onChosenOption($event)"
+    ></app-question>
+    <div fxLayout="row" fxLayoutGap="10px">
+      <button [disabled]="finishedAnswering" (click)="onPrevious()">
+        Anterior
+      </button>
+      <button
+        [disabled]="finishedAnswering || disabledNextSubmitBtn"
+        (click)="onNextSubmit()"
+      >
+        {{questions.length - 1 === currentQuestionIndex ? "Enviar" : "Próxima"}}
+      </button>
+    </div>
+    <p *ngIf="finishedAnswering">
+      Respostas certas: {{rightAnswers.length }} / {{ questions.length }}
+    </p>
+    <span>Tempo: {{ timer }} </span>
+  </div> -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Quiz da UFJF</mat-card-title>
+      <mat-card-subtitle>Bem vindos!</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+      <mat-form-field class="example-full-width">
+        <mat-label>Matrícula</mat-label>
+        <input matInput placeholder="Ex. João" />
+      </mat-form-field>
+      <p>Pergunta {{currentQuestionIndex + 1}} de {{questions.length }}</p>
+      <app-question
+        [question]="questions[currentQuestionIndex]"
+        (chosenOption)="onChosenOption($event)"
+      ></app-question>
+    </mat-card-content>
+    <mat-card-actions
+      fxLayout="row"
+      fxLayoutGap="10px"
+      fxLayoutAlign="center center"
+    >
+      <button
+        mat-stroked-button
+        color="warn"
+        [disabled]="finishedAnswering"
+        (click)="onPrevious()"
+      >
+        Anterior
+      </button>
+      <button
+        mat-stroked-button
+        color="warn"
+        [disabled]="finishedAnswering || disabledNextSubmitBtn"
+        (click)="onNextSubmit()"
+      >
+        {{questions.length - 1 === currentQuestionIndex ? "Enviar" : "Próxima"}}
+      </button>
+    </mat-card-actions>
+    <mat-card-footer fxLayout="column" fxLayoutAlign="center center">
+      <p *ngIf="finishedAnswering">
+        Respostas certas: {{rightAnswers.length }} / {{ questions.length }}
+      </p>
+      <p>Tempo: {{ timer }}</p>
+    </mat-card-footer>
+  </mat-card>
+</div>
