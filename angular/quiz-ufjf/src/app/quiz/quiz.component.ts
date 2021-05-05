@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { FirebaseService } from '../firebase.service';
 import { Question } from '../models/question.model';
+import { QuestionHostDirective } from '../question-host.directive';
+import { QuestionComponent } from '../question/question.component';
 import { QuestionsService } from '../questions.service';
 
 @Component({
@@ -23,26 +26,25 @@ export class QuizComponent implements OnInit {
   finishedAnswering = false;
   disabledNextSubmitBtn = true;
   questions: Question[];
+  // @ViewChild(QuestionComponent) question: QuestionComponent;
+  @ViewChild(QuestionHostDirective, { static: true })
+  questionHost: QuestionHostDirective;
 
   constructor(
     private _service: QuestionsService,
     private _firebase: FirebaseService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _componentFactoryResolver: ComponentFactoryResolver
   ) {}
 
   ngOnInit(): void {
-    /*this._firestore
-      .collection('resultados')
-      .get()
-      .subscribe((res) => {
-        res.forEach((doc) => console.log(doc.data()));
-      });*/
     this._route.queryParams.subscribe((params) => {
       if (params['matricula']) {
         this.matricula = params['matricula'];
       }
     });
     this.questions = this._service.getQuestions();
+    this.loadComponent();
     this.timerSubscription = interval(1000).subscribe({
       next: (val) => {
         this.timerInt = val;
@@ -95,8 +97,22 @@ export class QuizComponent implements OnInit {
     this.currentQuestionIndex--;
   }
 
-  onChosenOption(event) {
+  onChosenOption(answer) {
+    console.log(answer);
     this.disabledNextSubmitBtn = false;
-    this.answers[event.questionId - 1] = event;
+    this.answers[answer.questionId - 1] = answer;
+  }
+
+  loadComponent() {
+    const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
+      QuestionComponent
+    );
+    const viewContainerRef = this.questionHost.viewContainerRef;
+    viewContainerRef.clear();
+    const componentRef = viewContainerRef.createComponent<QuestionComponent>(
+      componentFactory
+    );
+    componentRef.instance.question = this.questions[0];
+    componentRef.instance.chosenOption.subscribe(this.onChosenOption);
   }
 }

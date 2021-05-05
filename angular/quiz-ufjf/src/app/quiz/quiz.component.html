@@ -31,15 +31,22 @@
       <mat-card-subtitle>Bem vindos!</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content fxLayout="column" fxLayoutAlign="center center">
-      <mat-form-field class="example-full-width">
-        <mat-label>Matrícula</mat-label>
-        <input matInput placeholder="Ex. João" />
-      </mat-form-field>
-      <p>Pergunta {{currentQuestionIndex + 1}} de {{questions.length }}</p>
-      <app-question
+      <div fxLayout="row" fxLayoutAlign="space-evenly center" fxFill>
+        <span
+          >Pergunta {{currentQuestionIndex + 1}} de {{questions.length }}</span
+        >
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <span>{{ timer }}</span>
+          <mat-icon aria-hidden="false" aria-label="Example home icon"
+            >schedule</mat-icon
+          >
+        </div>
+      </div>
+      <!-- <app-question
         [question]="questions[currentQuestionIndex]"
         (chosenOption)="onChosenOption($event)"
-      ></app-question>
+      ></app-question> -->
+      <ng-template [appQuestionHost]></ng-template>
     </mat-card-content>
     <mat-card-actions
       fxLayout="row"
@@ -67,7 +74,6 @@
       <p *ngIf="finishedAnswering">
         Respostas certas: {{rightAnswers.length }} / {{ questions.length }}
       </p>
-      <p>Tempo: {{ timer }}</p>
     </mat-card-footer>
   </mat-card>
 </div>

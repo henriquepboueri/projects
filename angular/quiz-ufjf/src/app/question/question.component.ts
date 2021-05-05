@@ -6,7 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatRadioGroup } from '@angular/material/radio';
+import { MatListOption } from '@angular/material/list';
 
 import { Question } from '../models/question.model';
 
@@ -21,13 +21,14 @@ export class QuestionComponent implements OnInit {
     questionId: number;
     answerId: number;
   }>();
-  @ViewChild(MatRadioGroup) radioGroup: MatRadioGroup;
+  @ViewChild(MatListOption) list: MatListOption;
 
   constructor() {}
 
   ngOnInit(): void {}
 
   onSelectOption(optionId) {
+    console.log(this.list);
     this.chosenOption.emit({
       questionId: this.question.id,
       answerId: optionId.id,
