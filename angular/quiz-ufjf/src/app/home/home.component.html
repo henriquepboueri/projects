@@ -1,4 +1,4 @@
-<div fxLayout="column">
+<div class="content" fxLayout="column">
   <h1>Quiz Calouros UFJF GV 2021.1</h1>
   <p>
     Olá! Seja bem vind@ à UFJF GV! Inserida no Vale do Rio Doce desde 2012,
@@ -9,13 +9,13 @@
 
   <label for="matricula">Matrícula: </label>
   <input #matricula name="matricula" type="text" />
-  <div id="actions" fxLayout="row" fxFlexAlign="space-between start">
+  <div id="actions" fxLayout="row" fxFlexAlign="space-between center">
     <button
       [disabled]="matricula.value == ''"
       (click)="chamaQuiz(matricula.value)"
     >
       Iniciar quiz
     </button>
-    <a routerLink="/ranking"><button>Ver ranking</button></a>
+    <a routerLink="/ranking">Ver ranking</a>
   </div>
 </div>

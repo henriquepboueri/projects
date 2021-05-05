@@ -7,6 +7,7 @@ import { Question } from '../models/question.model';
 import { QuestionHostDirective } from '../question-host.directive';
 import { QuestionComponent } from '../question/question.component';
 import { QuestionsService } from '../questions.service';
+import { parseTime } from '../shared/utils';
 
 @Component({
   selector: 'app-quiz',
@@ -26,7 +27,6 @@ export class QuizComponent implements OnInit {
   finishedAnswering = false;
   disabledNextSubmitBtn = true;
   questions: Question[];
-  // @ViewChild(QuestionComponent) question: QuestionComponent;
   @ViewChild(QuestionHostDirective, { static: true })
   questionHost: QuestionHostDirective;
 
@@ -46,9 +46,9 @@ export class QuizComponent implements OnInit {
     this.questions = this._service.getQuestions();
     this.loadComponent();
     this.timerSubscription = interval(1000).subscribe({
-      next: (val) => {
-        this.timerInt = val;
-        this.timer = this.parseTime(val);
+      next: (seconds) => {
+        this.timerInt = seconds;
+        this.timer = parseTime(seconds);
       },
     });
   }
@@ -57,16 +57,9 @@ export class QuizComponent implements OnInit {
     this.timerSubscription.unsubscribe();
   }
 
-  parseTime(totalSeconds: number) {
-    let mins: string | number = Math.floor(totalSeconds / 60);
-    let secs: string | number = Math.round(totalSeconds % 60);
-    mins = (mins < 10 ? '0' : '') + mins;
-    secs = (secs < 10 ? '0' : '') + secs;
-    return `${mins}:${secs}`;
-  }
-
   onNextSubmit() {
     if (this.currentQuestionIndex === this.questions.length - 1) {
+      // filtra as respostas corretas
       this.rightAnswers = this.answers.filter((answer) => {
         return (
           answer.answerId ===
@@ -77,6 +70,7 @@ export class QuizComponent implements OnInit {
       });
       this.finishedAnswering = true;
       this.timerSubscription.unsubscribe();
+      // persiste no Firestore
       this._firebase
         .postResultado({
           acertos: this.rightAnswers.length,
@@ -90,15 +84,16 @@ export class QuizComponent implements OnInit {
     }
     this.currentQuestionIndex++;
     this.disabledNextSubmitBtn = true;
+    this.loadComponent();
   }
 
   onPrevious() {
     if (this.currentQuestionIndex === 0) return;
     this.currentQuestionIndex--;
+    this.loadComponent();
   }
 
   onChosenOption(answer) {
-    console.log(answer);
     this.disabledNextSubmitBtn = false;
     this.answers[answer.questionId - 1] = answer;
   }
@@ -112,7 +107,9 @@ export class QuizComponent implements OnInit {
     const componentRef = viewContainerRef.createComponent<QuestionComponent>(
       componentFactory
     );
-    componentRef.instance.question = this.questions[0];
-    componentRef.instance.chosenOption.subscribe(this.onChosenOption);
+    componentRef.instance.question = this.questions[this.currentQuestionIndex];
+    componentRef.instance.chosenOption.subscribe((option) => {
+      this.onChosenOption(option);
+    });
   }
 }

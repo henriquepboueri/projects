@@ -28,7 +28,6 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {}
 
   onSelectOption(optionId) {
-    console.log(this.list);
     this.chosenOption.emit({
       questionId: this.question.id,
       answerId: optionId.id,
