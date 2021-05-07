@@ -1,51 +1,60 @@
-.container {
-  height: 100%;
-  padding: 1rem;
-  background-color: antiquewhite;
-}
-
-.quiz-box {
-  /* width: 30%; */
-  text-align: justify;
-  padding: 3rem;
-}
-
-.example-full-width {
-  width: 100%;
-}
-
-@media screen and (min-width: 600px) {
-  mat-card {
-    width: 50%;
-  }
+#content-title {
+  margin-bottom: 3rem;
+  font-size: 12px;
+  font-weight: bold;
 }
 
 mat-card {
   padding: 0;
+  margin: 1rem;
+  border-radius: 1rem;
 }
 
 mat-card-header {
-  background-color: firebrick;
+  background-color: #d32f2f;
+  padding: 1.5rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+mat-card-title,
+mat-card-subtitle {
+  margin: 0;
+  /* font-family: "Open Sans", sans-serif !important; */
+  color: white;
+  text-align: center;
 }
 
 mat-card-title {
-  margin-top: 0.5rem;
-  color: white;
+  font-weight: bold;
+
 }
 
-mat-card-subtitle {
-  margin-top: 0.5rem;
-  color: white;
-}
 mat-card-content {
-  padding: 0.5rem;
+  padding: 1.5rem;
 }
 
-#content-title {
-  margin-bottom: 1rem;
+mat-card-actions {
+  /* padding: 1.5rem; */
 }
 
-.timer {
-  /* color:brown; */
-  /* font-weight: bold; */
+mat-card-actions button {
+  width: 7rem;
+  margin-bottom: 1.5rem;
+}
+
+#progresso-pergunta {
+  color: #b0b0b0;
+}
+
+#final-msg-box .custom-btn {
+  margin-top: 2rem;
+}
+
+.timer-box mat-icon {
+  color: #b0b0b0;
+}
+
+.timer-box .timer-ext {
+  color: #8f8c8c;
 }

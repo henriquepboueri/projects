@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-  databaseURL: "https://quiz-ufjf.firebaseio.com",
-  apiKey: "AIzaSyDxwqmD__Ei32AKvk3WdHjJC_9eWr28YFM",
-  authDomain: "quiz-ufjf.firebaseapp.com",
-  projectId: "quiz-ufjf",
-  storageBucket: "quiz-ufjf.appspot.com",
-  messagingSenderId: "323020714945",
-  }
-  };
+    databaseURL: 'https://quiz-ufjf.firebaseio.com',
+    apiKey: 'AIzaSyDxwqmD__Ei32AKvk3WdHjJC_9eWr28YFM',
+    authDomain: 'quiz-ufjf.firebaseapp.com',
+    projectId: 'quiz-ufjf',
+    storageBucket: 'quiz-ufjf.appspot.com',
+    messagingSenderId: '323020714945',
+  },
+};
 
 /*
  * For easier debugging in development mode, you can import the following file

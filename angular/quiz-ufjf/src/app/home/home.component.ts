@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,12 +9,11 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   @ViewChild('#matricula') matricula;
+  matriculaControl = new FormControl('', [Validators.required, Validators.pattern('')])
 
-  constructor(private _router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
-  chamaQuiz(matricula) {
-    this._router.navigate(['quiz'], { queryParams: { matricula: matricula } });
-  }
+
 }

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import './answer.dart';
+import './question.dart';
+
 void main() {
   var app = MyApp();
   runApp(app);
@@ -14,20 +17,35 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  final _questions = [
+    {
+      'questionText': 'What\'s your favorite color?',
+      'answers': ['Blue', 'Yellow', 'Green', 'Red']
+    },
+    {
+      'questionText': 'What\'s your favorite animal?',
+      'answers': ['Dog', 'Cat', 'Pig', 'Chicken']
+    },
+    {
+      'questionText': 'Who\'s your favorite actor?',
+      'answers': ['Marlon Brando', 'James Fox', 'Robert De Niro', 'Jackie chan']
+    },
+  ];
 
   void _answerQuestion() {
     setState(() {
-      _questionIndex = _questionIndex + 1;
+      if (_questionIndex + 1 == _questions.length) {
+        _questionIndex = 0;
+      } else {
+        _questionIndex = _questionIndex + 1;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print("build called");
-    var questions = [
-      'What\'s your favorite color?',
-      'What\'s your favorite animal?'
-    ];
+    print("_MyAppState called");
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -35,19 +53,11 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Text(questions[_questionIndex]),
-            RaisedButton(
-              child: Text('Answer 1'),
-              onPressed: _answerQuestion,
-            ),
-            RaisedButton(
-              child: Text('Answer 2'),
-              onPressed: _answerQuestion,
-            ),
-            RaisedButton(
-              child: Text('Answer 3'),
-              onPressed: _answerQuestion,
-            ),
+            Question(_questions[_questionIndex]['questionText']),
+            ...(_questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) {
+              return Answer(answer, _answerQuestion);
+            }).toList(),
           ],
         ),
       ),

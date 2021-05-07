@@ -23,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { environment } from 'src/environments/environment';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuestionHostDirective } from './question-host.directive';
+import { InstrucoesComponent } from './instrucoes/instrucoes.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { QuestionHostDirective } from './question-host.directive';
     HomeComponent,
     QuizComponent,
     QuestionHostDirective,
+    InstrucoesComponent,
   ],
   imports: [
     BrowserModule,

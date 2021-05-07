@@ -1,4 +1,56 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  font-family: "Open Sans", sans-serif;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif; */
+  /* font-family: "Open Sans", sans-serif !important; */
+}
+
+.custom-btn {
+  font-size: 1rem;
+  height: 3rem;
+  /* font-family: "Open Sans", sans-serif !important; */
+  /* background-color: #d32f2f !important; */
+}
+
+.mat-focus-indicator .custom-btn .mat-raised-button .mat-button-base .mat-warn {
+  height: 4rem;
+}
+
+.msg-title {
+  font-size: 1.5rem;
+  color: #2e2c2c;
+  /* font-family: "Open Sans", sans-serif !important; */
+  margin-bottom: 2.5rem !important;
+}
+
+.text-line {
+  font-size: 1.3rem;
+  margin: 0.8rem 0 !important;
+  color: #4f4c4c;
+  text-align: justify;
+  letter-spacing: 1px;
+}
+
+.mat-raised-button.mat-warn.mat-button-disabled,
+.mat-raised-button.mat-button-disabled.mat-button-disabled {
+  background: transparent;
+  border: 1px solid #b0b0b0;
+  border-radius: 0.5rem;
+}
+
+.mat-raised-button.mat-warn {
+  background-color: #d32f2f;
+  border-radius: 0.5rem;
+}
+
+/* .mat-raised-button {
+  background-color: #992020 !important;
+} */

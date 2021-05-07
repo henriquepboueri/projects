@@ -1,21 +1,21 @@
 <div class="content" fxLayout="column">
-  <h1>Quiz Calouros UFJF GV 2021.1</h1>
-  <p>
+  <p class="msg-title">Quiz Calouros UFJF GV 2021.1</p>
+  <p class="text-line ">
     Olá! Seja bem vind@ à UFJF GV! Inserida no Vale do Rio Doce desde 2012,
     nossa universidade cresce a cada ano, reforçando nosso compromisso com a
-    qualidade do ensino público e com o desenvolvimento social. Vamos testar os
-    seus conhecimentos a respeito de nosso campus? Boa sorte!
+    qualidade do ensino público e com o desenvolvimento social.
   </p>
+  <p class="text-line ">
+    Vamos testar os seus conhecimentos a respeito de nosso campus?
+  </p>
+  <p class="text-line ">Boa sorte!</p>
 
-  <label for="matricula">Matrícula: </label>
-  <input #matricula name="matricula" type="text" />
-  <div id="actions" fxLayout="row" fxFlexAlign="space-between center">
-    <button
-      [disabled]="matricula.value == ''"
-      (click)="chamaQuiz(matricula.value)"
-    >
-      Iniciar quiz
-    </button>
-    <a routerLink="/ranking">Ver ranking</a>
-  </div>
+  <button
+    mat-raised-button
+    color="warn"
+    class="custom-btn"
+    routerLink="/instrucoes"
+  >
+    Ver regras do jogo e começar!
+  </button>
 </div>
