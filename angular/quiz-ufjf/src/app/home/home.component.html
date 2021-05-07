@@ -1,21 +1,28 @@
-<div class="content" fxLayout="column">
-  <p class="msg-title">Quiz Calouros UFJF GV 2021.1</p>
-  <p class="text-line ">
-    Olá! Seja bem vind@ à UFJF GV! Inserida no Vale do Rio Doce desde 2012,
-    nossa universidade cresce a cada ano, reforçando nosso compromisso com a
-    qualidade do ensino público e com o desenvolvimento social.
-  </p>
-  <p class="text-line ">
-    Vamos testar os seus conhecimentos a respeito de nosso campus?
-  </p>
-  <p class="text-line ">Boa sorte!</p>
-
-  <button
-    mat-raised-button
-    color="warn"
-    class="custom-btn"
-    routerLink="/instrucoes"
-  >
-    Ver regras do jogo e começar!
-  </button>
-</div>
+<mat-card class="content" fxLayout="column">
+  <mat-card-content>
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+      <div class="logo"></div>
+      <div class="partner-logo">Logo goes here</div>
+    </div>
+    <p class="msg-title">Plugue! Calouros 2021.1</p>
+    <p class="text-line ">
+      Olá! Seja bem vind@ à UFJF GV! Inserida no Vale do Rio Doce desde 2012,
+      nossa universidade cresce a cada ano, reforçando nosso compromisso com a
+      qualidade do ensino público e com o desenvolvimento social.
+    </p>
+    <p class="text-line ">
+      Vamos testar os seus conhecimentos a respeito de nosso campus?
+    </p>
+    <p class="text-line ">Boa sorte!</p>
+  </mat-card-content>
+  <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+    <button
+      mat-raised-button
+      color="warn"
+      class="custom-btn"
+      routerLink="/instrucoes"
+    >
+      Ver regras do jogo e começar!
+    </button>
+  </mat-card-actions>
+</mat-card>

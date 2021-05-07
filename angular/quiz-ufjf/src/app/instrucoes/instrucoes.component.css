@@ -1,0 +1,49 @@
+mat-form-field {
+  border: 1px dotted #d32f2f;
+}
+
+mat-card-actions {
+  padding: 1rem;
+}
+
+mat-card-actions button {
+  height: 80%;
+  margin-top: 0.3rem;
+}
+
+mat-card-actions label,
+mat-card-actions input {
+  width: 100%;
+}
+
+mat-card-actions input {
+  height: 2rem;
+  font-size: 1.5rem;
+  border: 3px #d32f2f solid;
+}
+
+mat-card-actions label {
+  /* font-weight: bold; */
+  font-size: 1.5rem;
+  color: #413e3e;
+}
+
+mat-card-content p a:active,
+mat-card-content p a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+}
+
+.logo {
+  width: 6.56rem;
+  height: 2rem;
+  background-image: url("../../assets/ufjf-logo.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.header {
+  width: 100%;
+  margin-bottom: 2rem;
+}

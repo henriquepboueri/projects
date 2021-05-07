@@ -1,1 +1,44 @@
-<p>instrucoes works!</p>
+<mat-card class="content" fxLayout="column">
+  <mat-card-content>
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+      <div class="logo"></div>
+      <div class="partner-logo">Logo goes here</div>
+    </div>
+    <p class="msg-title">Instruções do jogo</p>
+    <p class="text-line ">
+      Para participar do game, sugerimos que você confira o site da UFJF GV e de
+      nosso parceiro cultural, a empresa valadarense XXXXXX. Assim você terá
+      mais chances de responder corretamente, e em menor tempo, o nosso quiz.
+    </p>
+    <p class="text-line ">
+      Assim que você estiver pronto, é só adicionar a sua matrícula e seguir no
+      jogo.
+    </p>
+    <p class="text-line ">
+      Confira todas as condições para concorrer ao prêmio do Plugue! Calouros
+      2021.1 no <a href="http://www.ufjf.br/gv">www.ufjf.br/gv</a> ou o
+      <a href="https://www.instagram.com/ufjfcampusgv/">@ufjfcampusgv</a>.
+    </p>
+    <p class="text-line ">
+      Seja bem-vind@ à UFJF GV. E boa sorte!
+    </p>
+  </mat-card-content>
+  <mat-card-actions
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="0.1rem"
+  >
+    <label for="matricula">Matrícula </label>
+    <input #MatriculaInput name="matricula" placeholder="Ex. 123456" />
+    <button
+      [disabled]="MatriculaInput.value == ''"
+      mat-raised-button
+      color="warn"
+      class="custom-btn"
+      routerLink="/quiz"
+      [queryParams]="{matricula:MatriculaInput.value}"
+    >
+      Começar!
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,31 @@
+<mat-card class="content" fxLayout="column">
+  <mat-card-content>
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+      <div class="logo"></div>
+      <div class="partner-logo">Logo goes here</div>
+    </div>
+    <p class="msg-title">Plugue! Calouros 2021.1</p>
+    <p class="text-line">
+      Você acertou {{rightAnswers.length }} {{ rightAnswers.length > 1 ?
+      'perguntas' : 'pergunta'}} em {{ timer }}.
+    </p>
+    <p class="text-line">
+      <span style="font-weight: bold; font-style: italic;">Print</span> esta
+      página e aguarde o resultado final.
+    </p>
+    <p class="text-line">
+      Fique atento às nossas redes sociais e ao site da UFJF GV.
+    </p>
+    <p class="text-line">Obrigado pela participação, e boa sorte!</p>
+  </mat-card-content>
+  <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+    <button
+      class="custom-btn"
+      mat-raised-button
+      color="warn"
+      routerLink="/home"
+    >
+      Finalizar
+    </button>
+  </mat-card-actions>
+</mat-card>

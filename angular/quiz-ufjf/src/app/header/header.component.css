@@ -1,12 +1,11 @@
+/* .header {
+  width: 90vw;
+} */
+
 .logo {
   width: 6.56rem;
   height: 2rem;
   background-image: url("../../assets/ufjf-logo.png");
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.header {
-  width: 100%;
-  margin-bottom: 2rem;
 }

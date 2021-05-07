@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver } from '@angular/core';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, interval } from 'rxjs';
 import { FirebaseService } from '../firebase.service';
 import { Question } from '../models/question.model';
@@ -34,6 +34,7 @@ export class QuizComponent implements OnInit {
     private _service: QuestionsService,
     private _firebase: FirebaseService,
     private _route: ActivatedRoute,
+    private _router: Router,
     private _componentFactoryResolver: ComponentFactoryResolver
   ) {}
 
@@ -79,6 +80,9 @@ export class QuizComponent implements OnInit {
         })
         .then((res) => {
           console.log(res);
+          this._router.navigate(['resultado'], {
+            state: { timer: this.timer, answers: this.rightAnswers },
+          });
         });
       return;
     }

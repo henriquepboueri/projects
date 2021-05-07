@@ -18,22 +18,24 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionComponent } from './question/question.component';
-import { RankingComponent } from './ranking/ranking.component';
 import { HomeComponent } from './home/home.component';
 import { environment } from 'src/environments/environment';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuestionHostDirective } from './question-host.directive';
 import { InstrucoesComponent } from './instrucoes/instrucoes.component';
+import { ResultadoComponent } from './resultado/resultado.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuestionComponent,
-    RankingComponent,
     HomeComponent,
     QuizComponent,
     QuestionHostDirective,
     InstrucoesComponent,
+    ResultadoComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
