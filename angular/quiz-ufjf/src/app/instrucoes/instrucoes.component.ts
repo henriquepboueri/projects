@@ -6,6 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./instrucoes.component.css'],
 })
 export class InstrucoesComponent implements OnInit {
+  private _matricula = '';
+  get matricula() {
+    return this._matricula.trim();
+  }
+  set matricula(val) {
+    console.log(val);
+    this._matricula = val.trim();
+  }
   public patrocinadores = [
     {
       empresa: 'Bar do Fred',
@@ -19,6 +27,9 @@ export class InstrucoesComponent implements OnInit {
     },
   ];
 
+  onInput(event) {
+    console.log(event.data);
+  }
   constructor() {}
 
   ngOnInit(): void {}

@@ -8,6 +8,7 @@ import { QuestionHostDirective } from '../question-host.directive';
 import { QuestionComponent } from '../question/question.component';
 import { QuestionsService } from '../questions.service';
 import { parseTime } from '../shared/utils';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-quiz',
@@ -35,7 +36,8 @@ export class QuizComponent implements OnInit {
     private _firebase: FirebaseService,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _componentFactoryResolver: ComponentFactoryResolver
+    private _componentFactoryResolver: ComponentFactoryResolver,
+    private _snack: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +71,6 @@ export class QuizComponent implements OnInit {
           }).answerIndex
         );
       });
-      this.finishedAnswering = true;
       this.timerSubscription.unsubscribe();
       // persiste no Firestore
       this._firebase
@@ -77,11 +78,28 @@ export class QuizComponent implements OnInit {
           acertos: this.rightAnswers.length,
           matricula: this.matricula,
           tempo: this.timerInt,
+          timestamp: new Date().toLocaleString(),
         })
         .then((res) => {
-          console.log(res);
+          this.finishedAnswering = true;
           this._router.navigate(['resultado'], {
-            state: { timer: this.timer, answers: this.rightAnswers },
+            state: {
+              timer: this.timer,
+              answers: this.rightAnswers,
+              matricula: this.matricula,
+            },
+          });
+        })
+        .catch((reason) => {
+          // this._snack.open(`Erro: ${reason.message}`);
+          let errorMsg = '';
+          switch (reason.message) {
+            case 'Missing or insufficient permissions.':
+              errorMsg = 'Matrícula já participou do jogo!';
+              break;
+          }
+          this._snack.open(`Erro: ${errorMsg || reason.message}`, 'Fechar', {
+            duration: 5000,
           });
         });
       return;
@@ -103,14 +121,12 @@ export class QuizComponent implements OnInit {
   }
 
   loadComponent() {
-    const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
-      QuestionComponent
-    );
+    const componentFactory =
+      this._componentFactoryResolver.resolveComponentFactory(QuestionComponent);
     const viewContainerRef = this.questionHost.viewContainerRef;
     viewContainerRef.clear();
-    const componentRef = viewContainerRef.createComponent<QuestionComponent>(
-      componentFactory
-    );
+    const componentRef =
+      viewContainerRef.createComponent<QuestionComponent>(componentFactory);
     componentRef.instance.question = this.questions[this.currentQuestionIndex];
     componentRef.instance.chosenOption.subscribe((option) => {
       this.onChosenOption(option);

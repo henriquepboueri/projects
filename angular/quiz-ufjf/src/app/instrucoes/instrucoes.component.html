@@ -66,14 +66,21 @@
     fxLayoutGap="0.1rem"
   >
     <label for="matricula">Matrícula </label>
-    <input #MatriculaInput name="matricula" placeholder="Ex. 123456" />
+    <input
+      [(ngModel)]="matricula"
+      name="matricula"
+      placeholder="Ex. 123456"
+      inputmode="numeric"
+      pattern="[0-9]*"
+      (input)="onInput($event)"
+    />
     <button
-      [disabled]="MatriculaInput.value == ''"
+      [disabled]="matricula == ''"
       mat-raised-button
       color="warn"
       class="custom-btn"
       routerLink="/quiz"
-      [queryParams]="{matricula:MatriculaInput.value}"
+      [queryParams]="{matricula:matricula}"
     >
       Começar!
     </button>

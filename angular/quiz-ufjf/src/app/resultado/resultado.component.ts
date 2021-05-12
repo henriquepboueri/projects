@@ -9,11 +9,13 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 export class ResultadoComponent implements OnInit {
   rightAnswers = [];
   timer = '';
+  matricula = '';
 
   constructor(private route: ActivatedRoute, private _router: Router) {
     const state = this._router.getCurrentNavigation().extras.state;
     this.rightAnswers = state['answers'];
     this.timer = state['timer'];
+    this.matricula = state['matricula'];
   }
 
   ngOnInit() {

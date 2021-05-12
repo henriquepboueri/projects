@@ -9,10 +9,13 @@ export class FirebaseService {
   constructor(private _firestore: AngularFirestore) {}
 
   postResultado(resultado: Resultado) {
-    return this._firestore.collection('resultados').add(resultado);
+    return this._firestore
+      .collection('resultados')
+      .doc(resultado.matricula)
+      .set(resultado);
   }
 
-  getResultados(){
+  getResultados() {
     return this._firestore.collection('resultados').get();
   }
 }
