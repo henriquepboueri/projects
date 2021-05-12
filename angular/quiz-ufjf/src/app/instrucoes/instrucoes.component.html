@@ -1,8 +1,14 @@
 <mat-card class="content" fxLayout="column">
   <mat-card-content>
     <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
-      <div class="logo"></div>
-      <div class="partner-logo">Logo goes here</div>
+      <div class="partner-logo"></div>
+      <a
+        href="https://www.ufjf.br/gv/"
+        target="_blank"
+        title="Visitar site da UFJF"
+      >
+        <div class="logo"></div
+      ></a>
     </div>
     <p class="msg-title">Instruções do jogo</p>
     <p class="text-line ">
@@ -22,6 +28,37 @@
     <p class="text-line ">
       Seja bem-vind@ à UFJF GV. E boa sorte!
     </p>
+    <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="1rem">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <!-- box-realizador -->
+        <span>Realização:</span>
+        <div id="realizador"></div>
+      </div>
+
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <!-- box-patrocinadores -->
+        <span>Apoio Cultural:</span>
+        <div
+          id="patrocinadores"
+          fxLayout="row wrap"
+          fxLayout.xs="row wrap"
+          fxLayoutAlign="center center"
+          fxLayoutGap="1rem"
+        >
+          <a
+            *ngFor="let patrocinador of patrocinadores"
+            [href]="patrocinador.socials"
+            target="_blank"
+            title="Visitar Instagram"
+          >
+            <div
+              class="patrocinador"
+              [style.background-image]="'url(' + patrocinador.logo + ')'"
+            ></div>
+          </a>
+        </div>
+      </div>
+    </div>
   </mat-card-content>
   <mat-card-actions
     fxLayout="column"
