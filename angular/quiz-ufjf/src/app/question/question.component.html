@@ -1,16 +1,3 @@
-<!-- <div fxLayout="column" fxLayoutGap="0.8rem">
-  <p id="question-title">{{ question.id }} - {{ question.text}}</p>
-  <mat-selection-list [multiple]="false">
-    <mat-list-option
-      (click)="onSelectOption(option)"
-      *ngFor="let option of question.options; index as i"
-      [value]="i"
-    >
-      {{option.text}}
-    </mat-list-option>
-  </mat-selection-list>
-</div> -->
-
 <p id="question-title">{{ question.text}} </p>
 <mat-selection-list [multiple]="false">
   <mat-list-option

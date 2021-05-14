@@ -14,18 +14,17 @@
     <p class="text-line">Matrícula: {{ matricula }}.</p>
     <p class="text-line">
       Você acertou {{rightAnswers.length }} {{ rightAnswers.length > 1 ?
-      'perguntas' : 'pergunta'}} em {{ timer }}.
+      'perguntas' : 'pergunta'}} em {{ timer | timeIt }}.
     </p>
     <p class="text-line">
-      <span style="font-weight: bold; font-style: italic;">Print</span> esta
-      página e aguarde o resultado final.
+      Obrigada pela participação e até a próxima!
     </p>
-    <p class="text-line">
-      Fique atento às nossas redes sociais e ao site da UFJF GV.
-    </p>
-    <p class="text-line">Obrigado pela participação, e boa sorte!</p>
   </mat-card-content>
-  <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+  <mat-card-actions
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="1rem"
+  >
     <button
       class="custom-btn"
       mat-raised-button
@@ -33,6 +32,14 @@
       routerLink="/home"
     >
       Finalizar
+    </button>
+    <button
+      class="custom-btn"
+      mat-raised-button
+      color="warn"
+      routerLink="/ranking"
+    >
+      Ranking
     </button>
   </mat-card-actions>
 </mat-card>

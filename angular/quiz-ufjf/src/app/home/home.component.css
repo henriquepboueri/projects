@@ -6,6 +6,15 @@
   background-repeat: no-repeat;
 }
 
+.partner-logo {
+  width: 4.7rem;
+  height: 2rem;
+  background-image: url("../../assets/plugue-logo.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
 .header {
   width: 100%;
   margin-bottom: 2rem;

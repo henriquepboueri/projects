@@ -1,0 +1,55 @@
+<mat-card class="content" fxLayout="column">
+  <mat-card-content>
+    <div class="header" fxLayout="row" fxLayoutAlign="space-between start">
+      <div class="partner-logo"></div>
+      <a
+        href="https://www.ufjf.br/gv/"
+        target="_blank"
+        title="Visitar site da UFJF"
+      >
+        <div class="logo"></div
+      ></a>
+    </div>
+    <p class="msg-title">Ranking</p>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="ranking">
+        <th mat-header-cell *matHeaderCellDef>Posição</th>
+        <td mat-cell *matCellDef="let resultado; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="matricula">
+        <th mat-header-cell *matHeaderCellDef>Matrícula</th>
+        <td mat-cell *matCellDef="let resultado">{{resultado.matricula}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acertos">
+        <th mat-header-cell *matHeaderCellDef>Acertos</th>
+        <td mat-cell *matCellDef="let resultado">{{resultado.acertos}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="tempo">
+        <th mat-header-cell *matHeaderCellDef>Tempo</th>
+        <td mat-cell *matCellDef="let resultado">{{resultado.tempo | timeIt}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="timestamp">
+        <th mat-header-cell *matHeaderCellDef>Horário</th>
+        <td mat-cell *matCellDef="let resultado">{{resultado.timestamp}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-card-content>
+  <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+    <button
+      mat-raised-button
+      color="warn"
+      class="custom-btn"
+      routerLink="/home"
+    >
+      Ir para o início
+    </button>
+  </mat-card-actions>
+</mat-card>

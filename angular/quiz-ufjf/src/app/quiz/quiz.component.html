@@ -1,84 +1,6 @@
-<!-- <div
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  [ngStyle]="{'display': finishedAnswering ? 'none' : 'flex'}"
->
-  <div
-    id="content-title"
-    fxLayout="row"
-    fxLayoutAlign="space-between center"
-    fxFill
-  >
-    <span id="progresso-pergunta"
-      >Pergunta {{currentQuestionIndex + 1}} de {{questions.length }}</span
-    >
-    <div class="timer-box" fxLayout="row" fxLayoutAlign="center center">
-      <mat-icon aria-hidden="false" aria-label="Example home icon"
-      >schedule</mat-icon
-      >
-      <span class="timer-ext">{{ timer }}</span>
-    </div>
-  </div>
-
-  <ng-template [appQuestionHost]></ng-template>
-
-  <div
-    fxFill
-    id="actions"
-    fxLayout="row"
-    fxLayoutGap="1.5rem"
-    fxLayoutAlign="center center"
-  >
-    <button
-      class="custom-btn"
-      mat-raised-button
-      color="warn"
-      [disabled]="finishedAnswering || currentQuestionIndex === 0 "
-      (click)="onPrevious()"
-    >
-      Anterior
-    </button>
-    <button
-      class="custom-btn"
-      mat-raised-button
-      color="warn"
-      [disabled]="finishedAnswering || disabledNextSubmitBtn"
-      (click)="onNextSubmit()"
-    >
-      {{questions.length - 1 === currentQuestionIndex ? "Enviar" : "Próxima"}}
-    </button>
-  </div>
-  <div fxLayout="column" fxLayoutAlign="center center"></div>
-</div>
-
-<div
-  id="final-msg-box"
-  *ngIf="finishedAnswering"
-  fxLayout="column"
-  fxLayoutAlign="center center"
->
-  <p class="msg-title">Plugue! Calouros 2021.1</p>
-  <p class="text-line">
-    Você acertou {{rightAnswers.length }} {{ rightAnswers.length > 1 ?
-    'perguntas' : 'pergunta'}} em {{ timer }}.
-  </p>
-  <p class="text-line">
-    <span style="font-weight: bold; font-style: italic;">Print</span> esta
-    página e aguarde o resultado final.
-  </p>
-  <p class="text-line">
-    Fique atento às nossas redes sociais e ao site da UFJF GV.
-  </p>
-  <p class="text-line">Obrigado pela participação, e boa sorte!</p>
-  <button class="custom-btn" mat-raised-button color="warn" routerLink="/home">
-    Finalizar
-  </button>
-</div> -->
-
 <mat-card class="mat-elevation-z24">
   <mat-card-header fxLayout="column" fxLayoutAlign="center center">
-    <mat-card-title>Quiz do Calouro</mat-card-title>
-    <mat-card-subtitle>Seja bem-vindo!</mat-card-subtitle>
+    <mat-card-title>Quiz Calouros 2021.1.</mat-card-title>
   </mat-card-header>
   <mat-card-content fxLayout="column" fxLayoutGap="0.8rem">
     <div
@@ -99,7 +21,7 @@
         <mat-icon aria-hidden="false" aria-label="Example home icon"
           >schedule</mat-icon
         >
-        <span class="timer-ext">{{ timer }}</span>
+        <span class="timer-ext">{{ timerInt | timeIt }}</span>
       </div>
     </div>
     <ng-template [appQuestionHost]></ng-template>

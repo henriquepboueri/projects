@@ -11,25 +11,9 @@ export class InstrucoesComponent implements OnInit {
     return this._matricula.trim();
   }
   set matricula(val) {
-    console.log(val);
-    this._matricula = val.trim();
+    this._matricula = val.trim().toUpperCase();
   }
-  public patrocinadores = [
-    {
-      empresa: 'Bar do Fred',
-      logo: '../../assets/logo_bar_fred.jpg',
-      socials: 'https://www.instagram.com/bardofredgv',
-    },
-    {
-      empresa: 'Versenza Clinic',
-      logo: '../../assets/logo_versenza_clinic.jpg',
-      socials: 'https://www.instagram.com/versenzaclinic',
-    },
-  ];
 
-  onInput(event) {
-    console.log(event.data);
-  }
   constructor() {}
 
   ngOnInit(): void {}

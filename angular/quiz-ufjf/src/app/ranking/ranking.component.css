@@ -1,16 +1,17 @@
-/* .header {
-  width: 90vw;
-} */
+.mat-header-cell {
+  text-align: center;
+  padding: 0.2rem;
+}
 
-.logo {
-  width: 6.56rem;
+.partner-logo {
+  width: 4.7rem;
   height: 2rem;
-  background-image: url("../../assets/ufjf-logo.png");
+  background-image: url("../../assets/plugue-logo.jpeg");
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.partnet-logo {
+.logo {
   width: 6.56rem;
   height: 2rem;
   background-image: url("../../assets/ufjf-logo.png");

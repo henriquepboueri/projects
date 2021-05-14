@@ -1,19 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core'
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  @ViewChild('#matricula') matricula;
-  matriculaControl = new FormControl('', [Validators.required, Validators.pattern('')])
+  answeredQuiz: boolean
+  constructor () {}
 
-  constructor() {}
-
-  ngOnInit(): void {}
-
-
+  ngOnInit (): void {
+    this.answeredQuiz = !!localStorage.getItem('answeredQuiz')
+  }
 }

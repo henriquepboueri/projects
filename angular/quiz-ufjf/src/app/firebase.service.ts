@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
+import { map, tap } from 'rxjs/operators';
+
 import { Resultado } from './models/resultado.model';
 
 @Injectable({
@@ -16,6 +20,17 @@ export class FirebaseService {
   }
 
   getResultados() {
-    return this._firestore.collection('resultados').get();
+    return this._firestore
+      .collection('resultados', (ref) =>
+        ref.orderBy('acertos', 'desc').orderBy('tempo', 'asc')
+      )
+      .get()
+      .pipe(
+        map((res) => {
+          return res.docs.map((doc) => {
+            return doc.data();
+          });
+        })
+      );
   }
 }
