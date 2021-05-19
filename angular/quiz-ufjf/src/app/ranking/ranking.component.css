@@ -18,3 +18,7 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+
+.mat-column-acertos, .mat-column-tempo {
+  text-align: center;
+}
