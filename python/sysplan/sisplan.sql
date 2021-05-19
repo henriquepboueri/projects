@@ -5,7 +5,7 @@
 -- Dumped from database version 9.4.22
 -- Dumped by pg_dump version 9.5.25
 
--- Started on 2021-05-19 16:07:11 -03
+-- Started on 2021-05-19 15:40:22 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -2383,7 +2383,6 @@ COPY public.usuario (idusuario, nome, usuario, senha, email, ativo, chave, siape
 23	Renato Pereira Araújo	renato.araujo	d1e6469cae1fd4ca9a368aa1bca5161a	renato.araujo@ufjf.edu.br	t	\N	\N	\N	\N
 32	Juliana Nedina Souza	juliana.nedina	e10adc3949ba59abbe56e057f20f883e	juliana.nedina@ufjf.edu.br	t	9641f9d18cc14be2c4c21e642a63d609	\N	\N	18472393425bbf9c823f3df1.33457681
 10	Emílio Mafalda Oliveira	emilio.mafalda	f32b5a5fc330b5a1ab2f4adb5ea56809	emilio.mafalda@ufjf.edu.br	t	\N	\N	\N	5984528235ee77a71c1af25.75783288
-2	Administrador Sisplan	sisplan	576d07e1b01af345168c0fc26fc9ac00	sisplan@sisplan.br	t	\N	\N	\N	142575147160a562c50cdb36.11722187
 9	Eliana Nunes Hipólito	eliana.hipolito	fcea920f7412b5da7be0cf42b8c93759	eliana.hipolito@ufjf.edu.br	t	23d042bc5f9c714ef4bdd470929d11f3	\N	\N	\N
 8	André Felipe Araújo e Silva	andré.silva	fcea920f7412b5da7be0cf42b8c93759	andre.silva@ufjf.edu.br	t	ef9b5a6a8d3c9aa9d89003bfdde997f2	\N	\N	\N
 4	Ricardo Lorrane	ricardo.souza	7071b6bd3ae4cee5f8498b040ba2ae1e	ricardo.souza@ufjf.edu.br	t	\N	2051144	\N	\N
@@ -2393,13 +2392,14 @@ COPY public.usuario (idusuario, nome, usuario, senha, email, ativo, chave, siape
 36	 Heloisa Scatena Ferraz Maia	heloisa.scatena	e10adc3949ba59abbe56e057f20f883e	heloisa.scatena@ufjf.edu.br	t	edcf43636cd4464e7ce64ed3698de6c1	\N	\N	\N
 15	Ivan Bretas Sobrinho	ivan.bretas	e008419646595df989398bbd633a304b	ivan.bretas@ufjf.edu.br	t	\N	\N	\N	8123390475bd1a3512c0916.78634441
 22	Renato de Castro Martins	renato.castro	e10adc3949ba59abbe56e057f20f883e	renato.castro@ufjf.edu.br	t	5e6d474be35ab0b562279e4bb1d176e8	\N	\N	\N
+2	Administrador Sisplan	sisplan	576d07e1b01af345168c0fc26fc9ac00	sisplan@sisplan.br	t	\N	\N	\N	5520623315ea07c7de688a6.28639306
 40	Mariana Lacerda Andrade	mariana.lacerda	e10adc3949ba59abbe56e057f20f883e	mariana.lacerda@ufjf.edu.br	t	0f5e43f836c515541e4233c1abd39b42	\N	\N	6115374535ba0fcefc768d6.26659097
 18	Kassandro Cardoso Burmann	kassandro.burmann	fc5f2456492c14dd11b8f58e1c1ad247	kassandro.burmann@ufjf.edu.br	t	\N	\N	\N	\N
 38	Maria Alice Franco Vasconcelos	alice.franco	e10adc3949ba59abbe56e057f20f883e	alice.franco@ufjf.edu.br	t	9ad16d386dc68e8cd81ad70ae523ff38	\N	\N	\N
 24	Ricardo Cunha Grunewald	ricardo.grunewald	e10adc3949ba59abbe56e057f20f883e	ricardo.grunewald@ufjf.edu.br	t	94c0cb49d4f9f0d9b863c1da7a40a38c	\N	\N	12345528265bc61772e0ef50.22618763
 6	FABIO ALESSANDRO PIERI	fabio.pieri	e10adc3949ba59abbe56e057f20f883e	fabio.pieri@ufjf.edu.br	t	ae54b625e01fc7166f65ac068708ea26	1608982	\N	12321099515bd357ccab4a79.43169149
 39	Caroline Barbosa Oliveira	caroline.oliveira	\N	caroline.oliveira@ufjf.edu.br	t	ec46117f40cf270b83f576d409606a5b	\N	\N	\N
-14	George Campanha	george.campanha	e10adc3949ba59abbe56e057f20f883e	george.campanha@ufjf.edu.br	t	898e17faaac1535c65382e43203f5076	1900759	\N	\N
+14	George Campanha	george.campanha	e10adc3949ba59abbe56e057f20f883e	george.campanha@ufjf.edu.br	t	898e17faaac1535c65382e43203f5076	1900759	\N	62883650760a5598d8d9217.75506638
 33	Willian Oliveira	willian.oliveira	e10adc3949ba59abbe56e057f20f883e	willian.oliveira@ufjf.edu.br	t	1edcc6ecb7abc42097846e14272622d9	\N	\N	13076028815bb257c1972643.06957634
 29	Thiago Leal	thiago.leal	56191fb2b0fb09844ff5739cb7b67a98	thiago.leal@ufjf.edu.br	t	\N	\N	\N	3349129755bd9ddf7df39b4.56702159
 35	Edineres Caldeira dos Santos	edineres.caldeira	bc307b297855dbbaa746708eb4dee488	edinerescaldeira@gmail.com	t	\N	1115428	\N	21154962175c0feef9d53be4.92020440
@@ -3230,10 +3230,10 @@ COPY public.unidade (idunidade, sigla, descricao) FROM stdin;
 
 COPY public.item (iditem, idsubconta, nome, descricao, status, numcomprasnet, justificativaaprov, valor, justificativa, idusuariocadastro, idunidade, prestacaoservico, ativo, datacadastro, idusuarioaprova, dataaprova, aprovpara, idcentrodecusto, contratocontinuado) FROM stdin;
 21	536	ANTENA DE RADIO SETORIAL (BASESTATION)	ANTENA SETORIAL AIRMAX COM AS SEGUINTES CARACTERISTICAS: Frequencia: 5.15 GHz – 5.85GHz;Ganho: 17dBi;VSWR: 1.5:1;Abertura Vertical: 72º;Abertura Horizontal: 93º;Polarização: Vertical e Horizontal;Conector: 2x RP-SMA;Medidas: 367 x 63 x 41 mm.	1		\N	850.00	Comunicação via rádio no campus.	14	36	f	t	2017-10-30	3	2017-11-06	-1	16	f
+749	574	teste 321	descrição para pegar no SIGA	0		\N	3.21	teste de inclusão de item	14	13	f	t	2021-05-19	\N	\N	-1	16	f
 11	36	Álcool 70 GL	ÁLCOOL ETÍLICO, TIPO HIDRATADO, TERO ALCOOLICO 70 POR CENTO (70GL), APRESENTAÇÃO LÍQUIDO. FRASCO COM 1.000ML.	1	269941	\N	4.52	Material Almoxarifado	14	14	f	t	2017-10-30	2	2017-11-16	1	16	f
 22	30	Apagador	APAGADOR DE QUADRO MAGNÉTICO, PLÁSTICO E FELTRO, 15 X 6 X 5 CM.	1	326620	\N	2.66	Material Almoxarifado	14	36	f	t	2017-10-30	2	2017-11-16	1	16	f
 10	36	Água Sanitária	ÁGUA SANITÁRIA, COMPOSIÇÃO QUÍMICA HIPOCLORITO DE SÓDIO, HIDRÓXIDO DE SÓDIO, CLORETO, TEOR CLORO ATIVO VARIA DE 2 A 2,50, CLASSE CORROSIVO CLASSE 8, NÚMERO RISCO 85, RISCO SAÚDE 3, CORROSIVIDADE 1, PESO MOLECULAR CLORO 74,50, DENSIDADE DE 1,20 A 1, COR AMARELA ESVERDEADA BASTANTE FRACA, APLICAÇÃO LAVAGEM E ALVEJANTE DE ROUPAS, BANHEIRAS, PIAS, TIPO COMUM.	1	226700	\N	1.37	Material Almoxarifado	14	21	f	t	2017-10-30	2	2017-11-16	1	16	f
-749	574	teste 321	descrição para pegar no SIGA	4		\N	3.21	teste de inclusão de item	14	13	f	t	2021-05-19	2	2021-05-19	-1	16	f
 9	21	Água mineral, galão 20L	ÁGUA MINERAL SEM GÁS, FORNECIDA EM GALÃO DE 20L DE PLÁSTICO POLICARBONATO TRANSPARENTE, COM TAMPA DE PRESSÃO/LACRE/ENVASADO MECANICAMENTE, CONFORME PORTARIA DE CORRELATOS DO MINISTÉRIO DA SAÚDE. COM BEBEDOURO E GALÃO CONSIGNADO.	1	64720	\N	8.50	ATENDER AOS SERVIDORES DO CAMPUS GOVERNADOR VALADARES.	14	15	f	t	2017-10-30	19	2017-10-31	1	16	f
 4	40	Abraçadeira de nylon - 20 cm x 4 mm - pacote com 100	ABRAÇADEIRA AUTO-TRAVANTE, MATERIAL NAYLON 6.6, FLAMABILIDADE UL94V-2, COMPRIMENTO 200 MM X LARGURA 4,6 MM X DIÂMETRO DE AMARRAÇÃO 50 MM. pacote com 100	1	150711	\N	8.00	Não existem Abraçadeira de nylon - 20 cm x 4 mm - pacote com 100 cadastradas. Necessito para as tarefas no NTI.	14	36	f	t	2017-10-30	19	2017-10-31	1	16	f
 16	30	Almofada carimbo preta	ALMOFADA CARIMBO, MATERIAL CAIXA PLÁSTICO/METAL, MATERIAL ALMOFADA ESPONJA ABSORVENTE REVESTIDA DE TECIDO, TAMANHO MÉDIO, COR PRETA, TIPO ENTINTADA, COMPRIMENTO 17, LARGURA 10	1	228152	\N	7.80	Material Almoxarifado	14	36	f	t	2017-10-30	2	2017-11-16	1	16	f
@@ -27425,12 +27425,6 @@ COPY public.log (idlog, data, hora, detalhes, idusuario, idrecurso, idacao, idin
 9905	2021-05-19	15:43:00	Controler: subconta; action: buscarsubcontas; idconta: 2; 	14	20	118	1	16	\N
 9906	2021-05-19	15:43:37	Controler: subconta; action: buscarsubcontas; idconta: 21; 	14	20	118	1	16	\N
 9907	2021-05-19	15:45:00	Controler: item; action: cadastro; idconta: 21; idsubconta: 574; nome: teste 321; numcomprasnet: ; idunidade: 13; prestacaoservico: 0; valor: R$ 3.21; descricao: descrição para pegar no SIGA; justificativa: teste de inclusão de item; MAX_FILE_SIZE: 2097152; submit: Confirmar; 	14	23	68	1	16	\N
-9908	2021-05-19	16:02:50	\N	14	2	3	1	16	\N
-9909	2021-05-19	16:02:59	Controler: centrocusto; action: buscarcentrodecusto; idinstituicao: 1; 	14	22	149	1	16	\N
-9910	2021-05-19	16:03:00	Controler: centrocusto; action: buscarcentrodecusto; idinstituicao: 2; 	14	22	149	1	16	\N
-9911	2021-05-19	16:06:05	Controler: item; action: gridaprov; _search: false; nd: 1621451165673; rows: 100; page: 1; sidx: sbn; sord: asc; 	14	23	228	1	16	\N
-9912	2021-05-19	16:11:01	\N	2	2	3	1	\N	\N
-9913	2021-05-19	16:15:11	Controler: item; action: aprovaritens; aprovar: 749, 	2	23	83	1	\N	\N
 \.
 
 
@@ -27440,7 +27434,7 @@ COPY public.log (idlog, data, hora, detalhes, idusuario, idrecurso, idacao, idin
 -- Name: log_idlog_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.log_idlog_seq', 9913, true);
+SELECT pg_catalog.setval('public.log_idlog_seq', 9907, true);
 
 
 --
@@ -27513,7 +27507,6 @@ COPY public.logerro (idlog, data, hora, mensagem, idusuario, idrecurso, idacao, 
 60	2018-11-06	10:02:01.681993	Código: Err-T1541505721-L52650\nUsuário: Leonardo Alexandrino\n URL: http://sisplan.gv.ufjf.br/subconta/grid/?q=1\n  Linha: 235\n  Mensagem: SQLSTATE[42883]: Undefined function: 7 ERRO:  operador não existe: character varying = integer\nLINE 2: ...AS "c" ON c.idconta = sc.idconta WHERE (sc.numero = 16 ) ORD...\n                                                             ^\nHINT:  Nenhum operador corresponde com o nome e o(s) tipo(s) de argumento(s) informados. Você precisa adicionar conversões de tipo explícitas., query was: SELECT "sc".*, "c"."descricao" AS "dc", "c"."numero" AS "nc", "sc"."idsubconta", "sc"."numero" AS "n", "sc"."descricao" AS "d" FROM "subconta" AS "sc"\n INNER JOIN "conta" AS "c" ON c.idconta = sc.idconta WHERE (sc.numero = 16 ) ORDER BY "c"."descricao" desc\n  Detalhes: #0 /var/www/html/sisplan/library/Zend/Db/Statement.php(303): Zend_Db_Statement_Pdo->_execute(Array)\n#1 /var/www/html/sisplan/library/Zend/Db/Adapter/Abstract.php(480): Zend_Db_Statement->execute(Array)\n#2 /var/www/html/sisplan/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query(Object(Zend_Db_Table_Select), Array)\n#3 /var/www/html/sisplan/library/Zend/Db/Table/Abstract.php(1577): Zend_Db_Adapter_Pdo_Abstract->query(Object(Zend_Db_Table_Select))\n#4 /var/www/html/sisplan/library/Zend/Db/Table/Abstract.php(1392): Zend_Db_Table_Abstract->_fetch(Object(Zend_Db_Table_Select))\n#5 /var/www/html/sisplan/application/models/SubContaMapper.php(178): Zend_Db_Table_Abstract->fetchAll(Object(Zend_Db_Table_Select))\n#6 /var/www/html/sisplan/application/controllers/SubcontaController.php(157): Application_Model_SubContaMapper->getGridSearch('dc', 'desc', 500, '500', 'n', '16', 'eq')\n#7 /var/www/html/sisplan/library/Zend/Controller/Action.php(516): SubcontaController->gridAction()\n#8 /var/www/html/sisplan/library/Zend/Controller/Dispatcher/Standard.php(308): Zend_Controller_Action->dispatch('gridAction')\n#9 /var/www/html/sisplan/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))\n#10 /var/www/html/sisplan/library/Zend/Application/Bootstrap/Bootstrap.php(105): Zend_Controller_Front->dispatch()\n#11 /var/www/html/sisplan/library/Zend/Application.php(384): Zend_Application_Bootstrap_Bootstrap->run()\n#12 /var/www/html/sisplan/public/index.php(25): Zend_Application->run()\n#13 {main}	3	\N	\N	1	27	3	\N
 61	2018-11-08	10:20:13.386554	Código: Err-T1541679613-L34459\nUsuário: Leonardo Alexandrino\n URL: http://sisplan.gv.ufjf.br/item/delete/id/480\n  Linha: 179\n  Mensagem: Specified column "idtipoplanorcamentario" is not in the row\n  Detalhes: #0 /var/www/html/sisplan/application/models/ItemplanejadoMapper.php(402): Zend_Db_Table_Row_Abstract->__get('idtipoplanorcam...')\n#1 /var/www/html/sisplan/application/controllers/ItemController.php(302): Application_Model_ItemplanejadoMapper->buscarporitem('480')\n#2 /var/www/html/sisplan/library/Zend/Controller/Action.php(516): ItemController->deleteAction()\n#3 /var/www/html/sisplan/library/Zend/Controller/Dispatcher/Standard.php(308): Zend_Controller_Action->dispatch('deleteAction')\n#4 /var/www/html/sisplan/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))\n#5 /var/www/html/sisplan/library/Zend/Application/Bootstrap/Bootstrap.php(105): Zend_Controller_Front->dispatch()\n#6 /var/www/html/sisplan/library/Zend/Application.php(384): Zend_Application_Bootstrap_Bootstrap->run()\n#7 /var/www/html/sisplan/public/index.php(25): Zend_Application->run()\n#8 {main}	3	\N	\N	1	15	3	\N
 63	2018-11-08	10:52:47.712272	Código: Err-T1541681567-L28952\nUsuário: Leonardo Alexandrino\n URL: http://sisplan.gv.ufjf.br/item/delete/id/466\n  Linha: 179\n  Mensagem: Specified column "idtipoplanorcamentario" is not in the row\n  Detalhes: #0 /var/www/html/sisplan/application/models/ItemplanejadoMapper.php(402): Zend_Db_Table_Row_Abstract->__get('idtipoplanorcam...')\n#1 /var/www/html/sisplan/application/controllers/ItemController.php(302): Application_Model_ItemplanejadoMapper->buscarporitem('466')\n#2 /var/www/html/sisplan/library/Zend/Controller/Action.php(516): ItemController->deleteAction()\n#3 /var/www/html/sisplan/library/Zend/Controller/Dispatcher/Standard.php(308): Zend_Controller_Action->dispatch('deleteAction')\n#4 /var/www/html/sisplan/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))\n#5 /var/www/html/sisplan/library/Zend/Application/Bootstrap/Bootstrap.php(105): Zend_Controller_Front->dispatch()\n#6 /var/www/html/sisplan/library/Zend/Application.php(384): Zend_Application_Bootstrap_Bootstrap->run()\n#7 /var/www/html/sisplan/public/index.php(25): Zend_Application->run()\n#8 {main}	3	\N	\N	1	15	3	\N
-64	2021-05-19	16:12:26.206746	Código: Err-T1621451546-L80621\nUsuário: Administrador Sisplan\n URL: http://sisplan.gv.ufjf.br/item/grid/?q=1&tudo=true&cc=false&ativo=1&_search=true&nd=1621450958931&rows=100&page=1&sidx=n&sord=asc&filters=%7B%22groupOp%22%3A%22AND%22%2C%22rules%22%3A%5B%7B%22field%22%3A%22n%22%2C%22op%22%3A%22cn%22%2C%22data%22%3A%22teste%22%7D%2C%7B%22field%22%3A%22st%22%2C%22op%22%3A%22eq%22%2C%22data%22%3A%22%27all%27%22%7D%5D%7D\n  Linha: 235\n  Mensagem: SQLSTATE[42601]: Syntax error: 7 ERRO:  erro de sintaxe em ou próximo a "all"\nLINE 3: ...EIOUAOEUaceiouaeiouaeiouaoeu') ILIKE translate('\\'all\\'','ÁÇ...\n                                                             ^, query was: SELECT "i"."iditem", "i"."nome", "i"."valor", "i"."status", "i"."ativo", "i"."descricao", "sb"."descricao" AS "subconta", "u"."sigla" FROM "item" AS "i"\n INNER JOIN "subconta" AS "sb" ON i.idsubconta = sb.idsubconta\n INNER JOIN "unidade" AS "u" ON i.idunidade = u.idunidade WHERE (ativo = true) AND (translate(i.nome,'ÁÇÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕËÜáçéíóúàèìòùâêîôûãõëü','ACEIOUAEIOUAEIOUAOEUaceiouaeiouaeiouaoeu') ILIKE translate('%teste%','ÁÇÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕËÜáçéíóúàèìòùâêîôûãõëü','ACEIOUAEIOUAEIOUAOEUaceiouaeiouaeiouaoeu') AND translate(i.status,'ÁÇÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕËÜáçéíóúàèìòùâêîôûãõëü','ACEIOUAEIOUAEIOUAOEUaceiouaeiouaeiouaoeu') ILIKE translate('\\'all\\'','ÁÇÉÍÓÚÀÈÌÒÙÂÊÎÔÛÃÕËÜáçéíóúàèìòùâêîôûãõëü','ACEIOUAEIOUAEIOUAOEUaceiouaeiouaeiouaoeu')) ORDER BY "i"."nome" asc\n  Detalhes: #0 /var/www/html/sisplan/library/Zend/Db/Statement.php(303): Zend_Db_Statement_Pdo->_execute(Array)\n#1 /var/www/html/sisplan/library/Zend/Db/Adapter/Abstract.php(480): Zend_Db_Statement->execute(Array)\n#2 /var/www/html/sisplan/library/Zend/Db/Adapter/Pdo/Abstract.php(238): Zend_Db_Adapter_Abstract->query(Object(Zend_Db_Table_Select), Array)\n#3 /var/www/html/sisplan/application/models/ItemMapper.php(512): Zend_Db_Adapter_Pdo_Abstract->query(Object(Zend_Db_Table_Select))\n#4 /var/www/html/sisplan/application/controllers/ItemController.php(1662): Application_Model_ItemMapper->getGridSearch('n', 'asc', 0, '100', NULL, NULL, NULL, '{"groupOp":"AND...', NULL, NULL, true, NULL, true)\n#5 /var/www/html/sisplan/library/Zend/Controller/Action.php(516): ItemController->gridAction()\n#6 /var/www/html/sisplan/library/Zend/Controller/Dispatcher/Standard.php(308): Zend_Controller_Action->dispatch('gridAction')\n#7 /var/www/html/sisplan/library/Zend/Controller/Front.php(954): Zend_Controller_Dispatcher_Standard->dispatch(Object(Zend_Controller_Request_Http), Object(Zend_Controller_Response_Http))\n#8 /var/www/html/sisplan/library/Zend/Application/Bootstrap/Bootstrap.php(105): Zend_Controller_Front->dispatch()\n#9 /var/www/html/sisplan/library/Zend/Application.php(384): Zend_Application_Bootstrap_Bootstrap->run()\n#10 /var/www/html/sisplan/public/index.php(25): Zend_Application->run()\n#11 {main}	2	\N	\N	1	\N	3	\N
 \.
 
 
@@ -27523,7 +27516,7 @@ COPY public.logerro (idlog, data, hora, mensagem, idusuario, idrecurso, idacao, 
 -- Name: logerro_idlog_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.logerro_idlog_seq', 64, true);
+SELECT pg_catalog.setval('public.logerro_idlog_seq', 63, true);
 
 
 --
@@ -29095,7 +29088,7 @@ SELECT pg_catalog.setval('public.usuario_instituicao_idusuarioinstituicao_seq', 
 SELECT pg_catalog.setval('public.usuarios_usu_id_seq', 2, true);
 
 
--- Completed on 2021-05-19 16:07:13 -03
+-- Completed on 2021-05-19 15:40:24 -03
 
 --
 -- PostgreSQL database dump complete
