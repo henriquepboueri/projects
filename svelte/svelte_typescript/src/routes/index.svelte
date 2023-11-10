@@ -3,7 +3,7 @@
 	import type { InactionCardModel } from 'src/models/inaction-card.model';
 
 	import InactionCard from '../components/InactionCard.svelte';
-
+  
 	let inactions: InactionCardModel[] = [
 		{
 			title: 'Return VHS to Blockbuster',

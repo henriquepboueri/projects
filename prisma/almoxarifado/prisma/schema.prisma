@@ -1,0 +1,224 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model almoxarifado {
+  id                                                                Int                   @id @default(autoincrement())
+  nome                                                              String                @db.VarChar(100)
+  id_centro_custo                                                   Int
+  centrocusto                                                       centrocusto           @relation(fields: [id_centro_custo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_almoxarifado_centrocusto")
+  movimentacao                                                      movimentacao[]
+  relatoriosgerados                                                 relatoriosgerados[]
+  transferencia_transferencia_id_almoxarifado_destinoToalmoxarifado transferencia[]       @relation("transferencia_id_almoxarifado_destinoToalmoxarifado")
+  transferencia_transferencia_id_almoxarifado_origemToalmoxarifado  transferencia[]       @relation("transferencia_id_almoxarifado_origemToalmoxarifado")
+  usuairoalmoxarifado                                               usuairoalmoxarifado[]
+
+  @@index([id_centro_custo], map: "fk_centro_custo_idx")
+}
+
+model centrocusto {
+  id                     Int                   @id @default(autoincrement())
+  nome                   String                @unique(map: "nome_UNIQUE") @db.VarChar(100)
+  id_unid_organizacional Int
+  almoxarifado           almoxarifado[]
+  unidadeorganizacional  unidadeorganizacional @relation(fields: [id_unid_organizacional], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_cc_uo")
+  itembasico             itembasico[]
+  relatoriosgerados      relatoriosgerados[]
+  usuariocentrocusto     usuariocentrocusto[]
+
+  @@index([id_unid_organizacional], map: "fk_unidade_organizacional_idx")
+}
+
+model motivooperacao {
+  id           Int            @id @default(autoincrement())
+  nome         String         @unique(map: "nome_UNIQUE") @db.VarChar(100)
+  tipooperacao tipooperacao[]
+}
+
+model movimentacao {
+  id               Int             @id @default(autoincrement())
+  id_almoxarifado  Int
+  id_tipo_operacao Int
+  id_usuario       Int
+  id_transferencia Int?
+  id_item          Int
+  quantidade       Decimal         @db.Decimal(10, 2)
+  data_cadastro    DateTime        @default(now()) @db.Timestamp(0)
+  data_atualizacao DateTime        @default(now()) @db.Timestamp(0)
+  almoxarifado     almoxarifado    @relation(fields: [id_almoxarifado], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_mov_almorifado_origem")
+  itemalmoxarifado itemcomplemento @relation(fields: [id_item], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_mov_item")
+  tipooperacao     tipooperacao    @relation(fields: [id_tipo_operacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_mov_tipooperacao")
+  transferencia    transferencia?  @relation(fields: [id_transferencia], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_mov_transferencia")
+  usuario          usuario         @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_mov_usuario")
+
+  @@index([id_almoxarifado], map: "fk_almorifado_origem_idx")
+  @@index([id_item], map: "fk_mov_item_idx")
+  @@index([id_tipo_operacao], map: "fk_tipo_operacao_idx")
+  @@index([id_usuario], map: "fk_usuario_idx")
+  @@index([id_transferencia], map: "fk_mov_transferencia_idx")
+}
+
+model perfilusuario {
+  id                  Int                   @id @default(autoincrement())
+  nome                String                @unique(map: "nome_UNIQUE") @db.VarChar(100)
+  descricao           String?               @db.VarChar(100)
+  usuairoalmoxarifado usuairoalmoxarifado[]
+  usuariocentrocusto  usuariocentrocusto[]
+}
+
+model relatoriosgerados {
+  id                Int           @id @default(autoincrement())
+  id_centro_custo   Int?
+  id_almoxarifado   Int?
+  id_usuario        Int
+  data              DateTime      @default(now()) @db.Timestamp(0)
+  id_tipo_relatorio Int
+  dados             Json
+  almoxarifado      almoxarifado? @relation(fields: [id_almoxarifado], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rel_almoxarifado")
+  centrocusto       centrocusto?  @relation(fields: [id_centro_custo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rel_centrocusto")
+  tiporelatorio     tiporelatorio @relation(fields: [id_tipo_relatorio], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rel_tiporelatorio")
+  usuario           usuario       @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_rel_usuario")
+
+  @@index([id_almoxarifado], map: "fk_almoxarifado_idx")
+  @@index([id_centro_custo], map: "fk_centro_custo_idx")
+  @@index([id_tipo_relatorio], map: "fk_tipo_relatorio_idx")
+  @@index([id_usuario], map: "fk_usuario_idx")
+}
+
+model tipooperacao {
+  id                 Int            @id @default(autoincrement())
+  nome               String         @unique(map: "nome_UNIQUE") @db.VarChar(100)
+  id_motivo_operacao Int
+  deb_cred           String         @default("d") @db.Char(1)
+  movimentacao       movimentacao[]
+  motivooperacao     motivooperacao @relation(fields: [id_motivo_operacao], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_tipo_motivo_operacao")
+
+  @@index([id_motivo_operacao], map: "fk_tipo_motivo_operacao_idx")
+}
+
+model tiporelatorio {
+  id                Int                 @id @default(autoincrement())
+  nome              String              @unique(map: "nome_UNIQUE") @db.VarChar(100)
+  relatoriosgerados relatoriosgerados[]
+}
+
+model tipounidade {
+  id         Int          @id @default(autoincrement())
+  nome_curto String       @unique(map: "nome_curto_UNIQUE") @db.VarChar(45)
+  nome_longo String?      @db.VarChar(200)
+  itembasico itembasico[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model transferencia {
+  id                                                               Int                   @id @default(autoincrement())
+  id_item                                                          Int
+  id_almoxarifado_origem                                           Int
+  id_almoxarifado_destino                                          Int
+  quantidade                                                       Decimal               @db.Decimal(10, 2)
+  id_usuario_origem                                                Int
+  id_usuario_aceite                                                Int?
+  status                                                           transferencia_status? @default(Pendente)
+  data_cadastro                                                    DateTime?             @default(now()) @db.Timestamp(0)
+  data_atualizacao                                                 DateTime?             @db.Timestamp(0)
+  movimentacao                                                     movimentacao[]
+  almoxarifado_transferencia_id_almoxarifado_destinoToalmoxarifado almoxarifado          @relation("transferencia_id_almoxarifado_destinoToalmoxarifado", fields: [id_almoxarifado_destino], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_transf_almoxarifado_destino")
+  almoxarifado_transferencia_id_almoxarifado_origemToalmoxarifado  almoxarifado          @relation("transferencia_id_almoxarifado_origemToalmoxarifado", fields: [id_almoxarifado_origem], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_transf_almoxarifado_origem")
+  itemalmoxarifado                                                 itemcomplemento       @relation(fields: [id_item], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_transf_item_almoxarifado")
+  usuario_transferencia_id_usuario_aceiteTousuario                 usuario?              @relation("transferencia_id_usuario_aceiteTousuario", fields: [id_usuario_aceite], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_transf_usuario_aceite")
+  usuario_transferencia_id_usuario_origemTousuario                 usuario               @relation("transferencia_id_usuario_origemTousuario", fields: [id_usuario_origem], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_transf_usuario_origem")
+
+  @@index([id_almoxarifado_destino], map: "fk_transf_almoxarifado_destino_idx")
+  @@index([id_almoxarifado_origem], map: "fk_transf_almoxarifado_origem_idx")
+  @@index([id_item], map: "fk_transf_item_almoxarifado_idx")
+  @@index([id_usuario_aceite], map: "fk_transf_usuario_aceite_idx")
+  @@index([id_usuario_origem], map: "fk_transf_usuario_origem_idx")
+}
+
+model unidadeorganizacional {
+  id          Int           @id @default(autoincrement())
+  nome        String        @unique(map: "nome_UNIQUE") @db.VarChar(100)
+  centrocusto centrocusto[]
+}
+
+model usuario {
+  id                                                     Int                   @id @default(autoincrement())
+  nome                                                   String                @db.VarChar(100)
+  email                                                  String                @unique(map: "email_UNIQUE") @db.VarChar(100)
+  senha                                                  String                @db.VarChar(200)
+  movimentacao                                           movimentacao[]
+  relatoriosgerados                                      relatoriosgerados[]
+  transferencia_transferencia_id_usuario_aceiteTousuario transferencia[]       @relation("transferencia_id_usuario_aceiteTousuario")
+  transferencia_transferencia_id_usuario_origemTousuario transferencia[]       @relation("transferencia_id_usuario_origemTousuario")
+  usuairoalmoxarifado                                    usuairoalmoxarifado[]
+  usuariocentrocusto                                     usuariocentrocusto[]
+}
+
+model itembasico {
+  id              Int               @id @default(autoincrement())
+  id_centro_custo Int
+  nome            String            @db.VarChar(100)
+  descricao       String?           @db.VarChar(100)
+  tp_unidade      Int
+  cod_barras      String?           @db.VarChar(45)
+  centrocusto     centrocusto       @relation(fields: [id_centro_custo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_itembasico_centrocusto")
+  tipounidade     tipounidade       @relation(fields: [tp_unidade], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_itembasico_tipounidade")
+  itemcomplemento itemcomplemento[]
+
+  @@unique([nome, id_centro_custo], map: "unique_key")
+  @@index([id_centro_custo], map: "fk_centro_custo_idx")
+  @@index([tp_unidade], map: "fk_item_tipo_unidade_idx")
+}
+
+model itemcomplemento {
+  id               Int             @id @default(autoincrement())
+  id_item_basico   Int
+  qtde_inicial     Decimal         @default(0.00) @db.Decimal(10, 2)
+  vencimento       DateTime?       @db.Date
+  lote             String?         @db.VarChar(200)
+  data_cadastro    DateTime        @default(now()) @db.Timestamp(0)
+  data_atualizacao DateTime        @db.Timestamp(0)
+  itembasico       itembasico      @relation(fields: [id_item_basico], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_itemcomplemento_itembasico")
+  movimentacao     movimentacao[]
+  transferencia    transferencia[]
+
+  @@index([id_item_basico], map: "fk_item_almoxarifado_centro_custo_idx")
+}
+
+model usuairoalmoxarifado {
+  id                Int           @id @default(autoincrement())
+  id_perfil_usuario Int
+  id_usuario        Int
+  id_almoxarifado   Int
+  almoxarifado      almoxarifado  @relation(fields: [id_almoxarifado], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuarioalmoxarifado_almoxarifado")
+  perfilusuario     perfilusuario @relation(fields: [id_perfil_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuarioalmoxarifado_perfilusuario")
+  usuario           usuario       @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuarioalmoxarifado_usuario")
+
+  @@index([id_almoxarifado], map: "fk_almoxarifado_idx")
+  @@index([id_perfil_usuario], map: "fk_perfil_usuario_idx")
+  @@index([id_usuario], map: "fk_usuario_idx")
+}
+
+model usuariocentrocusto {
+  id                Int           @id @default(autoincrement())
+  id_perfil_usuario Int
+  id_usuario        Int
+  id_centro_custo   Int
+  centrocusto       centrocusto   @relation(fields: [id_centro_custo], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuariocentrocusto_centrocusto")
+  perfilusuario     perfilusuario @relation(fields: [id_perfil_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuariocentrocusto_perfilusuario")
+  usuario           usuario       @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_usuariocentrocusto_usuario")
+
+  @@index([id_centro_custo], map: "fk_centro_custo_idx")
+  @@index([id_perfil_usuario], map: "fk_perfil_usuario_idx")
+  @@index([id_usuario], map: "fk_usuario_idx")
+}
+
+enum transferencia_status {
+  Pendente
+  Conclu_do @map("Concluído")
+}
