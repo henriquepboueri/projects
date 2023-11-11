@@ -20,46 +20,52 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, ref } from 'vue';
+import { Ref, computed, onBeforeMount, ref } from 'vue';
 import { Exercise, Log } from 'src/components/models';
 
 import ExerciseList from 'components/ExerciseList.vue';
 import ExerciseAdd from 'components/ExerciseAdd.vue';
 import ExerciseLogs from 'components/ExerciseLogs.vue';
-import { useCollection } from 'vuefire';
-import { getFirestore, collection } from 'firebase/firestore';
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+} from 'firebase/firestore';
 import { app } from '../../firebase.conf';
-import { doc, setDoc, addDoc } from 'firebase/firestore';
+
+onBeforeMount(async () => {
+  const exercisesSnapshot = await getDocs(collection(db, 'exercises'));
+  exercisesSnapshot.forEach((doc) => {
+    exercises.value.push({ id: doc.id, name: doc.data().name });
+  });
+
+  const historySnapshot = await getDocs(collection(db, 'history'));
+  historySnapshot.forEach((doc) => {
+    exerciseLogs.value.push({
+      date: doc.data().date,
+      exercise: doc.data().name,
+    });
+  });
+});
 
 const db = getFirestore(app);
-const exercisesRef = useCollection(collection(db, 'exercises'));
+const historyRef = collection(db, 'history');
+const exercisesRef = collection(db, 'exercises');
 
 const showAddExercise = ref(false);
-const exercises: Ref<Exercise[]> = ref([
-  { id: 1, name: 'Bench Press' },
-  { id: 2, name: 'Pull Ups' },
-  { id: 3, name: 'Deadlift' },
-  { id: 4, name: 'Tríceps' },
-  { id: 5, name: 'Bíceps' },
-  { id: 6, name: 'Ombro' },
-  { id: 7, name: 'Cardio' },
-  { id: 8, name: 'Perna' },
-]);
+const exercises: Ref<Exercise[]> = ref([]);
 
-const exerciseLogs: Ref<Log[]> = ref([
-  { date: new Date('2019-05-11'), exercise: { name: 'Perna' } },
-  { date: new Date('2022-01-05'), exercise: { name: 'Tríceps' } },
-  { date: new Date('2021-03-23'), exercise: { name: 'Bíceps' } },
-  { date: new Date('2022-01-05'), exercise: { name: 'Cardio' } },
-  { date: new Date('2020-07-10'), exercise: { name: 'Ombro' } },
-]);
+const exerciseLogs: Ref<Log[]> = ref([]);
 const logsOrderedByDate = computed(() => {
   const arrangedLogs: { [key: string]: string[] } = {};
   exerciseLogs.value
     .map((log) => ({
       ...log,
-      date: log.date.toISOString().slice(0, 10),
-      exercise: log.exercise.name,
+      date: new Date(log.date).toLocaleDateString().slice(0, 10),
+      exercise: log.exercise,
     }))
     .forEach((log) => {
       if (arrangedLogs[log.date]) arrangedLogs[log.date].push(log.exercise);
@@ -67,32 +73,43 @@ const logsOrderedByDate = computed(() => {
     });
 
   return Object.entries(arrangedLogs)
-    .map((log) => ({
-      exercises: log[1],
-      date: log[0].split('-').reverse().join('/'),
-      dateObj: new Date(log[0]),
-    }))
+    .map((log) => {
+      const [mes, dia, ano] = log[0].split('/');
+      return {
+        exercises: log[1],
+        date: `${dia}/${mes}/${ano}`,
+        dateObj: new Date(log[0]),
+      };
+    })
     .sort((a, b) => a.dateObj.getTime() - b.dateObj.getTime())
     .reverse();
 });
 
-function onCompleteItem(id: number) {
+async function onCompleteItem(id: string) {
   const exercise = onDeleteItem(id);
 
   if (exercise) {
-    exercises.value.push(exercise);
-    exerciseLogs.value.push({
-      date: new Date(),
-      exercise,
+    await addDoc(historyRef, {
+      name: exercise.name,
+      date: Date.now(),
     });
+    exerciseLogs.value.push({
+      date: Date.now(),
+      exercise: exercise.name,
+    });
+    await addDoc(exercisesRef, {
+      name: exercise.name,
+    });
+    exercises.value.push(exercise);
   }
 }
 
-function onDeleteItem(id: number) {
+function onDeleteItem(id: string) {
   const exercise = exercises.value.find((e) => e.id === id);
 
   if (exercise) {
     exercises.value.splice(exercises.value.indexOf(exercise), 1);
+    deleteDoc(doc(db, 'exercises', id));
     return exercise;
   }
 }
@@ -104,10 +121,8 @@ function showDialog() {
 async function onAddExercise(name: string) {
   if (!name) return;
 
-  await addDoc(collection(db, 'exercises'), {
+  await addDoc(exercisesRef, {
     name,
-    dateObj: Date.now(),
-    date: new Date().toISOString().slice(0, 10),
   });
 
   exercises.value.unshift({ id: Date.now(), name });

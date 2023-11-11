@@ -1,7 +1,7 @@
 {
   "name": "Workout Control",
   "short_name": "Workout Control",
-  "start_url": "http://localhost:9000/",
+  "start_url": "https://workout-control.web.app",
   "display": "standalone",
   "description": "A description for your application",
   "lang": " The default language of your application",
@@ -34,7 +34,7 @@
   "related_applications": [
     {
       "platform": "windows",
-      "url": "http://localhost:9000"
+      "url": "https://workout-control.web.app"
     }
   ],
   "prefer_related_applications": false,

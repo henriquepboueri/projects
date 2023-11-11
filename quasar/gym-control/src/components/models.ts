@@ -1,10 +1,10 @@
 export interface Exercise {
-  id?: number;
+  id?: number | string;
   name: string;
 }
 
 export interface Log {
   id?: number;
-  exercise: Exercise;
-  date: Date;
+  exercise: string;
+  date: Date | number;
 }
