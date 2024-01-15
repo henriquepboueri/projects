@@ -20,45 +20,64 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, onBeforeMount, ref } from 'vue';
+import { Ref, computed, ref, onUnmounted } from 'vue';
 import { Exercise, Log } from 'src/components/models';
 
 import ExerciseList from 'components/ExerciseList.vue';
 import ExerciseAdd from 'components/ExerciseAdd.vue';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ExerciseLogs from 'components/ExerciseLogs.vue';
 import {
   getFirestore,
   collection,
-  getDocs,
   addDoc,
   deleteDoc,
   doc,
+  getDoc,
+  setDoc,
+  orderBy,
+  query,
+  onSnapshot,
 } from 'firebase/firestore';
 import { app } from '../../firebase.conf';
 
-onBeforeMount(async () => {
-  const exercisesSnapshot = await getDocs(collection(db, 'exercises'));
-  exercisesSnapshot.forEach((doc) => {
-    exercises.value.push({ id: doc.id, name: doc.data().name });
-  });
+onUnmounted(() => {
+  exercisesUnsub();
+  historyUnsub();
+});
 
-  const historySnapshot = await getDocs(collection(db, 'history'));
-  historySnapshot.forEach((doc) => {
+const exercises: Ref<Exercise[]> = ref([]);
+const showAddExercise = ref(false);
+const exerciseLogs: Ref<Log[]> = ref([]);
+
+const db = getFirestore(app);
+
+const historyRef = collection(db, 'history');
+const historyQuery = query(historyRef, orderBy('date', 'asc'));
+const historyUnsub = onSnapshot(historyQuery, (snapshot) => {
+  exerciseLogs.value = [];
+  snapshot.forEach((doc) => {
     exerciseLogs.value.push({
-      date: doc.data().date,
+      id: doc.id,
       exercise: doc.data().name,
+      date: doc.data().date,
     });
   });
 });
 
-const db = getFirestore(app);
-const historyRef = collection(db, 'history');
 const exercisesRef = collection(db, 'exercises');
+const exercisesQuery = query(exercisesRef, orderBy('date', 'asc'));
+const exercisesUnsub = onSnapshot(exercisesQuery, (snapshot) => {
+  exercises.value = [];
+  snapshot.forEach((doc) => {
+    exercises.value.push({
+      id: doc.id,
+      name: doc.data().name,
+      date: doc.data().date,
+    });
+  });
+});
 
-const showAddExercise = ref(false);
-const exercises: Ref<Exercise[]> = ref([]);
-
-const exerciseLogs: Ref<Log[]> = ref([]);
 const logsOrderedByDate = computed(() => {
   const arrangedLogs: { [key: string]: string[] } = {};
   exerciseLogs.value
@@ -86,32 +105,28 @@ const logsOrderedByDate = computed(() => {
 });
 
 async function onCompleteItem(id: string) {
-  const exercise = onDeleteItem(id);
+  const exerciseRef = await getDoc(doc(db, 'exercises', id));
+  const exercise = exerciseRef.data() as Exercise;
 
-  if (exercise) {
-    await addDoc(historyRef, {
-      name: exercise.name,
-      date: Date.now(),
-    });
-    exerciseLogs.value.push({
-      date: Date.now(),
-      exercise: exercise.name,
-    });
-    await addDoc(exercisesRef, {
-      name: exercise.name,
-    });
-    exercises.value.push(exercise);
-  }
+  if (!exercise) return;
+
+  const date = Date.now();
+
+  // adds exercise to history
+  await addDoc(historyRef, {
+    name: exercise.name,
+    date,
+  });
+
+  // updates exercise's last done date
+  await setDoc(doc(db, 'exercises', id), {
+    name: exercise.name,
+    date,
+  });
 }
 
-function onDeleteItem(id: string) {
-  const exercise = exercises.value.find((e) => e.id === id);
-
-  if (exercise) {
-    exercises.value.splice(exercises.value.indexOf(exercise), 1);
-    deleteDoc(doc(db, 'exercises', id));
-    return exercise;
-  }
+async function onDeleteItem(id: string) {
+  await deleteDoc(doc(db, 'exercises', id));
 }
 
 function showDialog() {
@@ -123,9 +138,9 @@ async function onAddExercise(name: string) {
 
   await addDoc(exercisesRef, {
     name,
+    date: 0,
   });
 
-  exercises.value.unshift({ id: Date.now(), name });
   showAddExercise.value = false;
 }
 </script>

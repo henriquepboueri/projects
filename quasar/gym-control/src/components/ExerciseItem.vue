@@ -1,9 +1,9 @@
 <template>
   <q-card class="row full-width justify-between">
-    <q-card-section class="">
+    <q-card-section class="q-pa-sm">
       <div class="text-h6">{{ props.exercise.name }}</div>
     </q-card-section>
-    <q-card-actions class="">
+    <q-card-actions class="q-pa-none">
       <q-btn flat icon="check" @click="emits('done', props.exercise.id)" />
       <q-btn flat icon="delete" @click="emits('delete', props.exercise.id)" />
     </q-card-actions>
