@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-pa-md q-gutter-md">
+    <div id="firebaseui-auth-container" />
     <exercise-list
       :exercises="exercises"
       @done="onCompleteItem"
@@ -20,12 +21,13 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, computed, ref, onUnmounted } from 'vue';
-import { Exercise, Log } from 'src/components/models';
+import { Ref, computed, ref, onUnmounted, onMounted } from 'vue';
 
+import * as firebaseui from 'firebaseui';
+
+import { Exercise, Log } from 'src/components/models';
 import ExerciseList from 'components/ExerciseList.vue';
 import ExerciseAdd from 'components/ExerciseAdd.vue';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ExerciseLogs from 'components/ExerciseLogs.vue';
 import {
   getFirestore,
@@ -46,6 +48,14 @@ onUnmounted(() => {
   historyUnsub();
 });
 
+onMounted(() => {
+  const ui = firebaseui.auth.AuthUI.getInstance();
+  ui?.start('#firebaseui-auth-container', {
+    signInOptions: [firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID],
+    popupMode: true,
+  });
+});
+
 const exercises: Ref<Exercise[]> = ref([]);
 const showAddExercise = ref(false);
 const exerciseLogs: Ref<Log[]> = ref([]);
@@ -61,6 +71,7 @@ const historyUnsub = onSnapshot(historyQuery, (snapshot) => {
       id: doc.id,
       exercise: doc.data().name,
       date: doc.data().date,
+      info: doc.data().info,
     });
   });
 });
@@ -74,21 +85,25 @@ const exercisesUnsub = onSnapshot(exercisesQuery, (snapshot) => {
       id: doc.id,
       name: doc.data().name,
       date: doc.data().date,
+      info: doc.data().info,
     });
   });
 });
 
 const logsOrderedByDate = computed(() => {
-  const arrangedLogs: { [key: string]: string[] } = {};
+  const arrangedLogs: { [key: string]: Exercise[] } = {};
   exerciseLogs.value
     .map((log) => ({
       ...log,
-      date: new Date(log.date).toLocaleDateString().slice(0, 10),
+      date: log.date
+        ? new Date(log.date).toLocaleDateString().slice(0, 10)
+        : '',
       exercise: log.exercise,
     }))
     .forEach((log) => {
-      if (arrangedLogs[log.date]) arrangedLogs[log.date].push(log.exercise);
-      else arrangedLogs[log.date] = [log.exercise];
+      if (arrangedLogs[log.date])
+        arrangedLogs[log.date].push({ name: log.exercise, info: log.info });
+      else arrangedLogs[log.date] = [{ name: log.exercise, info: log.info }];
     });
 
   return Object.entries(arrangedLogs)
@@ -104,9 +119,11 @@ const logsOrderedByDate = computed(() => {
     .reverse();
 });
 
-async function onCompleteItem(id: string) {
+async function onCompleteItem(exerciseParam: Exercise) {
+  const id = exerciseParam.id as string;
   const exerciseRef = await getDoc(doc(db, 'exercises', id));
   const exercise = exerciseRef.data() as Exercise;
+  console.log(exercise);
 
   if (!exercise) return;
 
@@ -116,16 +133,19 @@ async function onCompleteItem(id: string) {
   await addDoc(historyRef, {
     name: exercise.name,
     date,
+    info: exerciseParam.info || '',
   });
 
   // updates exercise's last done date
   await setDoc(doc(db, 'exercises', id), {
     name: exercise.name,
     date,
+    info: exerciseParam.info || '',
   });
 }
 
-async function onDeleteItem(id: string) {
+async function onDeleteItem(exerciseParam: Exercise) {
+  const id = exerciseParam.id as string;
   await deleteDoc(doc(db, 'exercises', id));
 }
 

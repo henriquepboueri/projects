@@ -14,7 +14,10 @@
         :key="index"
         class="text-left text-weight-regular"
       >
-        {{ +index + 1 }} - {{ exercise }}
+        <span v-if="exercise.info">
+          {{ +index + 1 }} - {{ exercise.name }}({{ exercise.info }})
+        </span>
+        <span v-else> {{ +index + 1 }} - {{ exercise.name }} </span>
       </div>
       <q-separator inset class="separator" v-if="index < logLength - 1" />
     </div>
@@ -23,11 +26,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { Exercise } from './models';
 
 const props = defineProps({
   logs: {
     type: Object as () => {
-      exercises: string[];
+      exercises: Exercise[];
       date: string;
       dateObj: Date;
     }[],
